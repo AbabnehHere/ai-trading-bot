@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Major development in event X",
+    "summary": "Sources report significant progress toward event X occurring.",
+    "source": "reuters",
+    "published_at": "2026-03-18T10:00:00Z",
+    "relevance_score": 0.92,
+    "sentiment": 0.75
+  },
+  {
+    "title": "Analysts weigh in on event X probability",
+    "summary": "Leading analysts suggest event X is increasingly likely.",
+    "source": "bloomberg",
+    "published_at": "2026-03-17T15:30:00Z",
+    "relevance_score": 0.85,
+    "sentiment": 0.60
+  },
+  {
+    "title": "Counterpoint: Obstacles remain for event X",
+    "summary": "Some experts highlight challenges that could prevent event X.",
+    "source": "ap_news",
+    "published_at": "2026-03-17T09:00:00Z",
+    "relevance_score": 0.78,
+    "sentiment": -0.30
+  }
+]

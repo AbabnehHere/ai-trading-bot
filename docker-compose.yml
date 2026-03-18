@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  bot:
+    build: .
+    container_name: polymarket-bot
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/app/data          # Persist database and logs
+      - ./config:/app/config      # Mount config for hot-reload
+    command: ["--mode", "live"]
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  paper:
+    build: .
+    container_name: polymarket-paper
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    command: ["--mode", "paper-trade"]
+    profiles: ["paper"]           # Only runs with: docker compose --profile paper up

@@ -1,0 +1,33 @@
+# Polymarket Bot — Main Configuration
+# Override with settings.dev.yaml or settings.prod.yaml
+
+bot:
+  name: "polymarket-bot"
+  version: "0.1.0"
+  cycle_interval_seconds: 300  # 5 minutes between trading cycles
+
+trading:
+  min_edge_threshold: 0.05      # Minimum edge to consider a trade (5%)
+  min_confidence: 0.6           # Minimum confidence to place a trade
+  max_open_positions: 10        # Maximum concurrent positions
+  default_kelly_fraction: 0.25  # Quarter Kelly for conservative sizing
+
+markets:
+  min_volume: 10000             # Minimum market volume in USDC
+  min_liquidity: 5000           # Minimum market liquidity in USDC
+  max_spread: 0.10              # Maximum bid-ask spread (10%)
+  excluded_categories: []       # Market categories to skip
+
+notifications:
+  enabled: false
+  telegram:
+    on_trade: true
+    on_error: true
+    daily_summary: true
+    summary_time: "20:00"
+
+logging:
+  level: "INFO"
+  file: "data/logs/bot.log"
+  max_size_mb: 50
+  backup_count: 5

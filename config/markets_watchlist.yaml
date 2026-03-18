@@ -1,0 +1,18 @@
+# Markets Watchlist
+# Add market IDs and metadata for markets to actively monitor
+
+watchlist:
+  # Example entry (uncomment and replace with real market IDs):
+  # - id: "0xabcdef1234567890"
+  #   name: "Will X happen by Y date?"
+  #   category: "politics"
+  #   priority: "high"
+  #   notes: "Strong edge expected based on polling data"
+  []
+
+# Categories to auto-scan for new opportunities
+auto_scan_categories:
+  - "politics"
+  - "crypto"
+  - "sports"
+  - "science"

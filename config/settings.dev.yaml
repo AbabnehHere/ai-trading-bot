@@ -1,0 +1,11 @@
+# Development / Paper Trading Overrides
+
+bot:
+  cycle_interval_seconds: 60  # Faster cycles in dev
+
+trading:
+  min_edge_threshold: 0.03    # Lower threshold for testing
+  min_confidence: 0.5
+
+logging:
+  level: "DEBUG"

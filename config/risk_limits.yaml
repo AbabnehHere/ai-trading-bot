@@ -1,0 +1,23 @@
+# Risk Management Parameters
+# These are hard limits — the bot CANNOT override them
+
+position_limits:
+  max_position_pct: 0.05        # Max 5% of portfolio in any single position
+  max_portfolio_exposure: 0.30  # Max 30% of portfolio deployed at once
+  max_correlated_exposure: 0.15 # Max 15% in correlated positions
+
+loss_limits:
+  daily_loss_limit_pct: 0.02    # Stop trading after 2% daily loss
+  weekly_loss_limit_pct: 0.05   # Stop trading after 5% weekly loss
+  max_drawdown_pct: 0.10        # Circuit breaker at 10% drawdown from peak
+
+trade_limits:
+  min_trade_size: 5.0           # Minimum trade size in USDC
+  max_trade_size: 100.0         # Maximum trade size in USDC
+  max_trades_per_day: 20        # Maximum number of trades per day
+  min_time_between_trades: 60   # Minimum seconds between trades
+
+market_quality:
+  min_liquidity: 5000           # Minimum liquidity in USDC
+  max_spread: 0.10              # Maximum spread (10%)
+  min_volume_24h: 1000          # Minimum 24h volume in USDC

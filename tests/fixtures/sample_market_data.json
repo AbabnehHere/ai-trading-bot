@@ -1,0 +1,23 @@
+{
+  "id": "0x1234567890abcdef",
+  "question": "Will event X happen by December 2026?",
+  "description": "This market resolves YES if event X occurs before December 31, 2026.",
+  "active": true,
+  "closed": false,
+  "end_date_iso": "2026-12-31T00:00:00Z",
+  "tokens": [
+    {
+      "token_id": "yes_token_id",
+      "outcome": "Yes",
+      "price": 0.65
+    },
+    {
+      "token_id": "no_token_id",
+      "outcome": "No",
+      "price": 0.35
+    }
+  ],
+  "volume": 150000.0,
+  "liquidity": 25000.0,
+  "category": "politics"
+}
