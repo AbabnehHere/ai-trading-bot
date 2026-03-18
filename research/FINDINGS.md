@@ -147,60 +147,137 @@ Polymarket is a decentralized prediction market platform where users trade on th
 
 ## 3. Competitive Landscape
 
-### Bot Activity on Polymarket
-- Multiple sophisticated bots operate on Polymarket, particularly:
-  - **Market makers** providing liquidity on major markets
-  - **Arbitrage bots** keeping YES+NO prices near $1.00
-  - **High-frequency news bots** reacting to events within seconds
-- **Implication**: Pure speed-based strategies are difficult for a new bot
+### Bot Tiers on Polymarket
 
-### Remaining Edges
-- **Niche/low-liquidity markets**: Less bot competition, more mispricing
-- **Multi-source analysis**: Most bots rely on single signals; combining multiple data sources creates an edge
-- **Category expertise**: Deep knowledge in specific domains (politics, crypto) beats generic approaches
-- **Patience**: Many bots are optimized for high frequency; our conservative approach avoids their competition
+**Tier 1: Professional (est. 5-15 operators)**
+- Professional market-making firms (likely Jump Trading, Wintermute, etc.) providing liquidity with tight spreads
+- AI-powered multi-agent systems (e.g., Autonolas/Olas agents)
+- Well-funded individual traders with private polling data (e.g., "Theo" — the French whale who reportedly made ~$50M on 2024 election using commissioned private polls)
 
-### Common Retail Trader Mistakes (Exploitable)
-- Overreaction to news (mean reversion opportunity)
-- Ignoring base rates and using recency bias
-- Poor understanding of probability (buying YES at $0.85 thinking it's "safe" when it's actually poor risk/reward)
-- Panic selling on negative news even when fundamentals haven't changed
+**Tier 2: Semi-Automated (est. 50-200 operators)**
+- Model-driven traders running polling/statistical models with scripted execution
+- Arbitrage scanners checking overround across multi-outcome markets
+- News-reactive bots using Twitter API + LLM parsing
+
+**Tier 3: Simple Bots (est. 200-1000+)**
+- Basic scripts using py-clob-client for order placement
+- Copy-trading bots following large wallets
+- Simple rule-based bots ("buy if price < X")
+
+### Market Reaction Speed
+- **Major breaking news** (AP calls, official announcements): 30 seconds to 2 minutes for 80%+ adjustment
+- **Polling releases**: 5-30 minutes (requires model interpretation)
+- **Rumors / unconfirmed**: 1-5 minutes with potential reversion
+- **Niche / non-English news**: Hours to days — **real edge for specialized data**
+- **Crypto-related markets**: Seconds (heavy crypto trader overlap)
+
+### Edges Arbitraged Away
+- Simple YES/NO complement mispricing (persists only seconds)
+- Stale quote picking on major news for high-volume markets
+- Basic cross-outcome arbitrage on popular markets (tight 1-3% overround)
+
+### Edges That Remain
+- **Niche/low-liquidity markets**: Thin books, less efficient, model-driven mispricing
+- **Multi-outcome overround on smaller markets**: 3-8% violations persist
+- **Cross-platform arbitrage** (Polymarket vs. Kalshi): Requires capital on both platforms
+- **News-reactive on non-obvious news**: State-level polling, regulatory filings, scientific publications
+- **Favorite-longshot bias**: Longshot outcomes (<10%) are systematically overpriced — selling is +EV
+- **New market mispricing**: Initial prices on newly launched markets are often poor
+- **Late-stage convergence**: 3-8% returns on near-certain outcomes
+- **Correlation / conditional markets**: Related markets mispriced relative to each other
+
+### Exploitable Retail Trader Mistakes
+1. **Overreacting to news** — panic buy/sell on headlines without assessing probability impact
+2. **Favorite-longshot bias** — overpaying for longshot outcomes (<10%)
+3. **Ignoring overround** — buying YES on all outcomes without realizing total > $1.00
+4. **Market orders in thin books** — crossing wide spreads, giving market makers free money
+5. **Anchoring to stale prices** — small adjustments vs. re-evaluating from first principles
+6. **Ignoring time value** — locking capital in 95c positions for months
+7. **Confirmation bias** — overweighting information confirming existing beliefs
+8. **Fee ignorance** — not factoring ~2% taker fee into expected value calculations
+9. **Correlation blindness** — not pricing correlated events properly
 
 ---
 
 ## 4. Data Sources
 
-### News & General Data
-| Source | Type | Access | Update Frequency |
-|--------|------|--------|------------------|
-| Google News RSS | RSS | Free | Real-time |
-| Reuters RSS | RSS | Free | Real-time |
-| BBC RSS | RSS | Free | Real-time |
-| AP News RSS | RSS | Free | Real-time |
-| GDELT Project | API | Free | 15 minutes |
-| NewsAPI.org | API | Free tier (100/day) | Real-time |
+### Real-Time News
+| Source | URL | Access | Notes |
+|--------|-----|--------|-------|
+| AP News RSS | rss.ap.org | Free | Gold standard for verified breaking news |
+| Reuters RSS | reuters.com/arc/outboundfeeds | Free | Comprehensive global news |
+| Google News RSS | news.google.com/rss | Free | Aggregated, filterable by topic |
+| BBC RSS | feeds.bbci.co.uk/news/rss.xml | Free | International coverage |
+| NewsAPI | newsapi.org | Free tier (100/day) | 80k+ sources aggregated |
+| GDELT Project | gdeltproject.org | Free | Global event monitoring, 15-min cycles |
+| Newscatcher API | newscatcherapi.com | Free tier | Structured news data |
 
 ### Political Data
-| Source | Type | Access |
-|--------|------|--------|
-| FiveThirtyEight | Polling aggregator | Free |
-| RealClearPolitics | Polling aggregator | Free |
-| 270toWin | Electoral maps | Free |
-| PredictIt (comparison) | Prediction market | API |
+| Source | URL | Notes |
+|--------|-----|-------|
+| FiveThirtyEight/538 | projects.fivethirtyeight.com/polls | Polling database with CSV downloads |
+| RealClearPolitics | realclearpolitics.com/epolls | Polling averages (scraping required) |
+| 270toWin | 270towin.com | Electoral maps, polling aggregation |
+| Race to the WH | racetothewh.com | State-level polling averages |
+| Congress API | api.congress.gov | Bills, votes, legislative data |
 
 ### Sports Data
-| Source | Type | Access |
-|--------|------|--------|
-| ESPN API | Scores/odds | Free |
-| Odds API | Bookmaker odds | Free tier |
-| Sports Reference | Historical stats | Free |
+| Source | URL | Notes |
+|--------|-----|-------|
+| ESPN API (unofficial) | site.api.espn.com/apis/site/v2/sports | Scores, schedules, odds |
+| Odds API | the-odds-api.com | Free tier (500 req/mo), aggregated bookmaker odds |
+| API-Football | api-football.com | Free tier, comprehensive soccer |
+| nba_api (Python) | github.com/swar/nba_api | Free NBA stats |
 
-### Crypto/Financial Data
-| Source | Type | Access |
-|--------|------|--------|
-| CoinGecko | Crypto prices | Free API |
-| Yahoo Finance | Financial data | Free API |
-| FRED | Economic data | Free API |
+### Crypto / Financial Data
+| Source | URL | Notes |
+|--------|-----|-------|
+| CoinGecko API | coingecko.com/en/api | Free (30 calls/min), prices/volumes |
+| CoinMarketCap | coinmarketcap.com/api | Free tier (10k credits/mo) |
+| Binance API | binance-docs.github.io/apidocs | Free, real-time prices + websockets |
+| FRED (Federal Reserve) | fred.stlouisfed.org/docs/api | Free, economic data (GDP, CPI, jobs) |
+| DeFiLlama | defillama.com/docs/api | Free, DeFi TVL and protocol data |
+| Yahoo Finance | finance.yahoo.com | Free API for stock/financial data |
+
+### Weather Data
+| Source | URL | Notes |
+|--------|-----|-------|
+| Open-Meteo | open-meteo.com | Free, no API key needed |
+| NWS API (US) | api.weather.gov | Free, US weather forecasts |
+| OpenWeatherMap | openweathermap.org/api | Free tier (60 calls/min) |
+
+### Official Government Sources
+| Source | URL | Notes |
+|--------|-----|-------|
+| SEC EDGAR | sec.gov/edgar | Corporate filings |
+| BLS (Bureau of Labor Statistics) | bls.gov/developers | Jobs, CPI data |
+| Federal Register API | federalregister.gov/developers | Regulatory actions |
+| WHO Disease Outbreak News | who.int/emergencies | Global health events |
+
+### Prediction Market Comparison
+| Source | URL | Notes |
+|--------|-----|-------|
+| Polymarket Gamma API | gamma-api.polymarket.com | Market metadata, resolution sources |
+| Kalshi API | trading-api.readme.io | Competitor prices for cross-platform analysis |
+| Metaculus API | metaculus.com/api | Community forecasts (good calibration benchmark) |
+
+---
+
+## 4.5 Open-Source Polymarket Repos
+
+| Repository | URL | Approach |
+|---|---|---|
+| **py-clob-client** | github.com/Polymarket/py-clob-client | Official Python SDK |
+| **clob-client** | github.com/Polymarket/clob-client | Official TypeScript SDK |
+| **Polymarket Examples** | github.com/Polymarket/examples | Example scripts for orders/data |
+| **Autonolas Trader Agent** | github.com/valory-xyz/trader | Sophisticated multi-agent AI trading system |
+| **clob-order-utils** | github.com/Polymarket/clob-order-utils | TypeScript order signing utilities |
+
+### Relevant Academic Papers
+- Wolfers & Zitzewitz (2004) — "Prediction Markets: Theory and Applications" (foundational)
+- Snowberg & Wolfers (2010) — "The Favorite-Longshot Bias" (longshots are overpriced — tradable edge)
+- Hanson, Oprea & Porter (2006) — "Manipulating Prediction Markets" (manipulation is self-correcting)
+- Berg, Nelson & Rietz (2008) — "Prediction Market Accuracy in the Long Run"
 
 ---
 
