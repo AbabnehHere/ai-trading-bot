@@ -11,6 +11,49 @@ trading:
   min_confidence: 0.6           # Minimum confidence to place a trade
   max_open_positions: 10        # Maximum concurrent positions
   default_kelly_fraction: 0.25  # Quarter Kelly for conservative sizing
+  review_interval: 20           # Trades between strategy reviews
+
+strategy:
+  edge_detection:
+    min_edge_threshold: 0.08      # Minimum probability edge to enter
+    confidence_required: 0.7      # Minimum confidence in estimate (0-1)
+    max_markets_concurrent: 10    # Don't hold more than N positions
+    min_liquidity_usd: 5000       # Skip illiquid markets
+    min_time_to_resolution_hours: 24
+
+  news_reactive:
+    enabled: true
+    min_sources_to_confirm: 2     # Require multiple sources
+    max_response_time_minutes: 15 # Don't chase old news
+    news_edge_threshold: 0.10     # Higher edge needed for speed trades
+
+  convergence:
+    enabled: true
+    min_probability_for_entry: 0.95
+    max_days_to_resolution: 14
+    min_spread_cents: 0.03
+
+  general:
+    check_interval_seconds: 60
+    order_type: "limit"
+    limit_offset_cents: 0.01
+
+risk:
+  max_position_pct: 0.03           # Max 3% of bankroll per trade
+  max_category_exposure_pct: 0.20  # Max 20% in any category
+  max_concurrent_positions: 10
+  max_daily_loss_pct: 0.03         # Stop trading after 3% daily loss
+  max_drawdown_pct: 0.10           # Circuit breaker at 10% drawdown from peak
+  max_slippage_pct: 0.02           # Max 2% slippage
+  kelly_fraction: 0.25             # Quarter Kelly
+  stop_loss_pct: 0.30              # Cut losses at 30%
+  take_profit_pct: 0.50            # Take partial profits at 50% gain
+  max_hold_days: 30                # Re-evaluate after 30 days
+  min_bankroll_usd: 50             # Stop trading if bankroll drops below $50
+  cooldown_after_loss_minutes: 30  # Wait 30 minutes after a loss before trading
+  min_trade_size: 5.0
+  max_trade_size: 100.0
+  max_trades_per_day: 20
 
 markets:
   min_volume: 10000             # Minimum market volume in USDC
