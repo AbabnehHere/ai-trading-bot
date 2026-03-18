@@ -20,40 +20,93 @@ Polymarket is a decentralized prediction market platform where users trade on th
 - Maker/taker model for fees
 
 ### API Surface
-- **REST API Base**: `https://clob.polymarket.com`
-- **Gamma API** (market data): `https://gamma-api.polymarket.com`
-- **Authentication**: API key + HMAC signature using wallet private key
-- **Key endpoints**:
-  - `GET /markets` — List all markets
-  - `GET /book` — Get orderbook for a token
-  - `GET /midpoint` — Get midpoint price
-  - `POST /order` — Place an order
-  - `DELETE /order/{id}` — Cancel an order
-  - `GET /orders` — Get open orders
-  - `GET /positions` — Get current positions
-- **Rate limits**: ~10 requests/second for REST, WebSocket for streaming
+
+#### Authentication (Two-Layer)
+1. **API Key Auth**: Derive API credentials (key, secret, passphrase) by signing with your Polygon wallet private key. Headers: `POLY_API_KEY`, `POLY_API_SECRET`, `POLY_PASSPHRASE`, `POLY_TIMESTAMP`, `POLY_SIGNATURE` (HMAC-SHA256)
+2. **Order Signing**: Orders signed with wallet private key using EIP-712 typed data (CTF Exchange order struct)
+
+#### REST Endpoints
+
+| Base URL | Purpose |
+|----------|---------|
+| `https://clob.polymarket.com` | Trading API (auth required for writes) |
+| `https://gamma-api.polymarket.com` | Market data (public, richer metadata) |
+
+**Public (no auth):**
+- `GET /markets` — List all markets (paginated with `next_cursor`)
+- `GET /markets/{condition_id}` — Single market
+- `GET /book?token_id=X` — Order book
+- `GET /midpoint?token_id=X` — Midpoint price
+- `GET /spread?token_id=X` — Spread
+- `GET /prices` — Current mid-market prices
+- `GET /last-trade-price` — Last trade price
+
+**Trading (auth required):**
+- `POST /order` — Place order (GTC, GTD, FOK, IOC)
+- `DELETE /order/{id}` — Cancel single order
+- `POST /cancel-orders` — Cancel multiple orders
+- `POST /cancel-all` — Cancel all orders
+- `POST /cancel-market-orders` — Cancel all for a market
+- `GET /orders` — List open orders
+- `GET /trades` — Trade history
+- `GET /positions` — Current positions
+- `GET /balance` — USDC balance
+
+**Order types**: GTC (Good Till Cancelled), GTD (Good Till Date), FOK (Fill or Kill), IOC (Immediate or Cancel)
+
+#### WebSocket API
+- **URL**: `wss://ws-subscriptions-clob.polymarket.com/ws`
+- **Channels**: `market` (price changes), `book` (orderbook deltas), `trades` (executions), `user` (auth — order updates)
+- Standard ping/pong for keepalive
+
+#### Rate Limits
+- ~100 requests per 10 seconds (~10 req/s) per API key
+- Public endpoints: ~10 req/s
+- HTTP 429 with `Retry-After` header on limit
 
 ### Python SDK: `py-clob-client`
-- Official Python SDK for the CLOB API
-- Key class: `ClobClient` — handles auth, order signing, and API calls
-- Order placement: `create_and_post_order(OrderArgs)`
-- Supports order creation, cancellation, position queries
-- Requires wallet private key for order signing
+- **Install**: `pip install py-clob-client`
+- **Key class**: `ClobClient(host, key, chain_id, signature_type)`
+  - `signature_type=0` for EOA wallets, `=2` for Polymarket proxy wallets
+- **Auth**: `client.derive_api_key()` → `ApiCreds(api_key, api_secret, api_passphrase)`
+- **Trading**: `client.create_and_post_order(OrderArgs(price, size, side, token_id), OrderType.GTC)`
+- **Queries**: `client.get_markets()`, `client.get_order_book(token_id)`, `client.get_positions()`, `client.get_balance()`
+- **Cancel**: `client.cancel(order_id)`, `client.cancel_all()`
+- **GitHub**: https://github.com/Polymarket/py-clob-client
 
 ### Fee Structure
-- **Maker fee**: 0% (fee-free for limit orders that add liquidity)
-- **Taker fee**: ~1-2% (for orders that remove liquidity)
+- **Maker fee**: **0%** (limit orders that add liquidity — free!)
+- **Taker fee**: **~2%** (orders that remove liquidity / cross the spread)
 - **No deposit/withdrawal fees** on Polymarket itself (only Polygon gas ~$0.01)
-- **Important**: Always use limit orders to avoid taker fees
+- **Strategy implication**: Always use limit orders to avoid taker fees
 
 ### Resolution Mechanics
-- Markets resolved by **UMA Optimistic Oracle**
-- Resolution process: proposer asserts outcome → 2-hour challenge window → if undisputed, resolution is finalized
-- **Edge cases**:
-  - **Voided markets**: If a market can't be resolved, all shares refund at cost basis
-  - **Disputed resolution**: Goes to UMA's DVM (Data Verification Mechanism) for a token holder vote
-  - **Early resolution**: Markets can resolve before end date if outcome becomes certain
-- **Risk**: Always account for resolution risk in position sizing
+- Binary outcome tokens via **Gnosis Conditional Token Framework (CTF)**
+- YES + NO always = $1.00 (complementary tokens)
+- Resolved by **UMA Optimistic Oracle**:
+  1. Proposer submits resolution (YES=1, NO=0)
+  2. 2-hour challenge window
+  3. If undisputed → finalized
+  4. If disputed → UMA DVM token holder vote (multi-day)
+
+**Resolution outcomes:**
+| Outcome | YES value | NO value |
+|---------|-----------|----------|
+| YES | $1.00 | $0.00 |
+| NO | $0.00 | $1.00 |
+| Voided/Invalid | $0.50 | $0.50 |
+
+**Edge cases:**
+- **Voided markets**: Ambiguous question → both tokens at $0.50
+- **Disputed resolution**: Multi-day DVM voting period, trading continues with uncertainty
+- **Early resolution**: Can resolve before end date if outcome becomes known
+- **Redemption**: Call `redeemPositions()` on CTF contract after resolution
+
+### Key Reference Links
+- **Docs**: https://docs.polymarket.com
+- **CLOB API**: https://docs.polymarket.com/#clob-api
+- **py-clob-client**: https://github.com/Polymarket/py-clob-client
+- **Gamma API**: https://gamma-api.polymarket.com
 
 ---
 
