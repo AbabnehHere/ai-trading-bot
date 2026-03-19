@@ -7,12 +7,15 @@ market analysis, strategy execution, risk management, and order management.
 import time
 from typing import Any
 
+from apscheduler.schedulers.background import BackgroundScheduler  # type: ignore[import-untyped]
+
 from src.core.market_analyzer import MarketAnalyzer
 from src.core.order_manager import OrderManager
 from src.core.position_manager import PositionManager
 from src.core.risk_manager import RiskManager
 from src.data.market_data import MarketDataClient
 from src.learning.lessons import LessonExtractor
+from src.learning.midnight_review import MidnightReview
 from src.learning.performance import PerformanceTracker
 from src.learning.strategy_tuner import StrategyTuner
 from src.learning.trade_journal import TradeJournal
@@ -84,14 +87,39 @@ class TradingBot:
         # Notifications
         self._notifier = NotificationManager()
 
+        # Midnight review
+        self._midnight_review = MidnightReview(
+            performance=self._performance,
+            journal=self._journal,
+            lessons=self._lessons,
+            tuner=self._tuner,
+            notifier=self._notifier,
+            current_config=self._config.get_all(),
+        )
+
+        # Scheduler for midnight review
+        self._scheduler = BackgroundScheduler()
+        self._scheduler.add_job(
+            self._run_midnight_review,
+            "cron",
+            hour=0,
+            minute=0,
+            id="midnight_review",
+        )
+
         mode_str = "PAPER" if paper else "LIVE"
         logger.info(f"TradingBot initialized in {mode_str} mode")
 
     def run(self) -> None:
         """Start the main trading loop."""
         self._running = True
+        self._scheduler.start()
         mode = "paper" if self._paper else "live"
-        logger.info(f"Bot started in {mode} mode", interval=self._cycle_interval)
+        logger.info(
+            f"Bot started in {mode} mode",
+            interval=self._cycle_interval,
+            midnight_review="scheduled at 00:00 UTC",
+        )
 
         while self._running:
             try:
@@ -111,11 +139,47 @@ class TradingBot:
     def shutdown(self) -> None:
         """Gracefully shut down the bot."""
         self._running = False
+        self._scheduler.shutdown(wait=False)
         balance = self._positions.get_portfolio_value()
         self._performance.save_snapshot(balance, 0.0, paper=self._paper)
         self._market_data.close()
         self._notifier.close()
         logger.info("Bot shut down", final_balance=f"${balance:.2f}")
+
+    def _run_midnight_review(self) -> None:
+        """Execute the midnight strategy review (called by scheduler)."""
+        try:
+            logger.info("Midnight strategy review starting")
+            result = self._midnight_review.run_review()
+
+            if result.get("should_pause"):
+                logger.warning(
+                    "MIDNIGHT REVIEW RECOMMENDS PAUSING",
+                    analysis=result.get("analysis", ""),
+                )
+                # Don't auto-pause — just alert. User must decide.
+
+            applied = result.get("applied", [])
+            if applied:
+                # Update the live config with applied changes
+                for change in applied:
+                    param = change.get("parameter", "")
+                    new_val = change.get("suggested")
+                    if param and new_val is not None:
+                        logger.info(
+                            "Config updated by midnight review",
+                            parameter=param,
+                            new_value=new_val,
+                        )
+
+            logger.info(
+                "Midnight review complete",
+                analysis=result.get("analysis", "")[:100],
+                changes=len(applied),
+            )
+        except Exception as e:
+            logger.error("Midnight review failed", error=str(e))
+            self._notifier.send_error_alert(str(e), "midnight_review")
 
     def _trading_cycle(self) -> dict[str, Any]:
         """Execute one full trading cycle: scan → analyze → trade."""

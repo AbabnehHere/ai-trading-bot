@@ -10,6 +10,7 @@ from typing import Any
 
 import httpx
 
+from src.data.llm_analyzer import LLMAnalyzer
 from src.data.news_feed import NewsFeed
 from src.data.sentiment import SentimentAnalyzer
 from src.utils.logger import get_logger
@@ -49,6 +50,7 @@ class OddsCompiler:
         """Initialize the odds compiler with data sources."""
         self._news_feed = NewsFeed()
         self._sentiment = SentimentAnalyzer()
+        self._llm = LLMAnalyzer()
         self._http_client = httpx.Client(timeout=15.0)
         self._odds_api_key = os.getenv("ODDS_API_KEY", "")
 
@@ -82,17 +84,23 @@ class OddsCompiler:
             if bookmaker_source:
                 sources.append(bookmaker_source)
 
-        # Source 2: News-based probability (independent of market price)
-        news_source = self._get_news_probability(keywords, market_question)
-        if news_source:
-            sources.append(news_source)
+        # Source 2: Claude LLM analysis (highest quality signal)
+        llm_source = self._get_llm_probability(market_question, keywords, category)
+        if llm_source:
+            sources.append(llm_source)
 
-        # Source 3: Base rate / prior probability
+        # Source 3: News-based probability (keyword fallback if no LLM)
+        if not llm_source:
+            news_source = self._get_news_probability(keywords, market_question)
+            if news_source:
+                sources.append(news_source)
+
+        # Source 4: Base rate / prior probability
         base_rate_source = self._get_base_rate(market_question, category)
         if base_rate_source:
             sources.append(base_rate_source)
 
-        # Source 4: Cross-platform comparison (Metaculus, Kalshi, etc.)
+        # Source 5: Cross-platform comparison (Metaculus, etc.)
         cross_platform_source = self._get_cross_platform_probability(keywords, market_question)
         if cross_platform_source:
             sources.append(cross_platform_source)
@@ -229,6 +237,49 @@ class OddsCompiler:
             if total > 0:
                 probs = [p / total for p in probs]
         return probs
+
+    def _get_llm_probability(
+        self, question: str, keywords: list[str], category: str
+    ) -> ProbabilitySource | None:
+        """Use Claude to analyze news and estimate probability.
+
+        This is the highest-quality signal — Claude reads actual news articles
+        and reasons about their impact on the market question.
+        """
+        if not self._llm.is_available:
+            return None
+
+        try:
+            # Fetch news for Claude to analyze
+            news = self._news_feed.get_market_relevant_news(keywords, limit=10)
+            articles = [
+                {
+                    "title": a.get("title", ""),
+                    "summary": a.get("summary", ""),
+                    "source": a.get("source", ""),
+                }
+                for a in (news or [])
+            ]
+
+            result = self._llm.estimate_probability(
+                market_question=question,
+                news_articles=articles,
+                category=category,
+            )
+
+            prob = result.get("probability")
+            if prob is not None:
+                return ProbabilitySource(
+                    source_name="claude_llm",
+                    probability=float(prob),
+                    confidence=float(result.get("confidence", 0.5)),
+                    details=f"Claude: {result.get('reasoning', '')[:80]}",
+                )
+
+        except Exception as e:
+            logger.warning("LLM probability source failed", error=str(e))
+
+        return None
 
     def _get_news_probability(self, keywords: list[str], question: str) -> ProbabilitySource | None:
         """Build probability estimate from news analysis.

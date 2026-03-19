@@ -7,6 +7,7 @@ be used to improve future trading decisions.
 import sqlite3
 from typing import Any
 
+from src.data.llm_analyzer import LLMAnalyzer
 from src.utils.helpers import now_iso
 from src.utils.logger import get_logger
 
@@ -25,6 +26,7 @@ class LessonExtractor:
             db_path: Path to the SQLite database.
         """
         self._db_path = db_path
+        self._llm = LLMAnalyzer()
 
     def analyze_trade(self, trade_id: int, actual_outcome: str) -> dict[str, Any]:
         """Analyze a completed trade and extract a lesson.
@@ -56,11 +58,17 @@ class LessonExtractor:
         entry_price = float(trade.get("price", 0))
         fill_price = float(trade.get("fill_price", entry_price))
         pnl = float(trade.get("size", 0)) * (fill_price - entry_price)
+        trade["pnl"] = pnl
         reasoning = trade.get("reasoning", "")
         profitable = pnl > 0
         good_reasoning = bool(reasoning and len(reasoning) > 10)
 
-        if profitable and good_reasoning:
+        # Try Claude-powered analysis first
+        if self._llm.is_available:
+            llm_result = self._llm.review_trade(trade, actual_outcome)
+            category = llm_result.get("category", "unknown")
+            lesson = llm_result.get("lesson", "LLM analysis complete")
+        elif profitable and good_reasoning:
             category = "good_trade_good_outcome"
             lesson = "Strategy worked as expected. Reinforce this pattern."
         elif not profitable and good_reasoning:
