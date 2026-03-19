@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-19T11:16:47.868453+00:00",
+  "timestamp": "2026-03-19T11:37:52.639038+00:00",
   "total_markets_scanned": 200,
   "opportunities": [
     {
@@ -8,8 +8,8 @@
       "category": "",
       "yes_price": 0.365,
       "no_price": 0.635,
-      "volume_24h": 3257545.7054119958,
-      "liquidity": 4005851.127,
+      "volume_24h": 3257965.4175309963,
+      "liquidity": 4054597.061,
       "end_date": "2026-03-19",
       "slug": "cbb-sfl-lou-2026-03-19",
       "recent_news": []
@@ -20,8 +20,8 @@
       "category": "",
       "yes_price": 0.255,
       "no_price": 0.745,
-      "volume_24h": 1324831.1034959992,
-      "liquidity": 3696481.7665,
+      "volume_24h": 1325042.9234929997,
+      "liquidity": 3889267.5679,
       "end_date": "2026-03-20",
       "slug": "cbb-akron-txtech-2026-03-20",
       "recent_news": []
@@ -32,10 +32,22 @@
       "category": "",
       "yes_price": 0.455,
       "no_price": 0.545,
-      "volume_24h": 1034313.6932339994,
-      "liquidity": 4450768.0988,
+      "volume_24h": 1034345.6932339994,
+      "liquidity": 4498427.3668,
       "end_date": "2026-03-20",
       "slug": "cbb-missr-mia-2026-03-20",
+      "recent_news": []
+    },
+    {
+      "id": "1408049",
+      "question": "Counter-Strike: PARIVISION vs NIP (BO3) - BLAST Open Rotterdam Group B",
+      "category": "",
+      "yes_price": 0.805,
+      "no_price": 0.195,
+      "volume_24h": 755916.0182010003,
+      "liquidity": 55146.1731,
+      "end_date": "2026-03-19",
+      "slug": "cs2-prv-nip-2026-03-19",
       "recent_news": []
     },
     {
@@ -44,29 +56,15 @@
       "category": "",
       "yes_price": 0.265,
       "no_price": 0.735,
-      "volume_24h": 753711.6119089995,
-      "liquidity": 458110.1363,
+      "volume_24h": 749843.1259059994,
+      "liquidity": 497060.4765,
       "end_date": "2026-03-31",
       "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519",
       "recent_news": [
+        "Israel and Iran attack gas facilities in a major escalation that rattles markets",
         "Japan PM to hold 'difficult' talks with Trump as Iran conflict looms large",
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "Live updates: Iran war news, Trump threatens to \u2018blow up\u2019 world\u2019s largest gas fi",
-        "Live updates: Interest rates steady, Federal Reserve forecasts one rate cut in 2",
-        "E.U. Loan for Ukraine Becomes Election Leverage for Orban - The New York Times"
+        "Japan PM Takaichi says Trump Washington talks 'difficult' as Iran looms large - "
       ]
-    },
-    {
-      "id": "1408049",
-      "question": "Counter-Strike: PARIVISION vs NIP (BO3) - BLAST Open Rotterdam Group B",
-      "category": "",
-      "yes_price": 0.865,
-      "no_price": 0.135,
-      "volume_24h": 725504.6257610006,
-      "liquidity": 47541.7347,
-      "end_date": "2026-03-19",
-      "slug": "cs2-prv-nip-2026-03-19",
-      "recent_news": []
     },
     {
       "id": "703257",
@@ -74,16 +72,14 @@
       "category": "",
       "yes_price": 0.185,
       "no_price": 0.815,
-      "volume_24h": 698242.1403660009,
-      "liquidity": 1855062.2089,
+      "volume_24h": 698216.6087720011,
+      "liquidity": 1911922.5771,
       "end_date": "2026-12-31",
       "slug": "will-the-us-confirm-that-aliens-exist-before-2027",
       "recent_news": [
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "How Europe sleepwalked into yet another energy crisis",
+        "Israel and Iran attack gas facilities in a major escalation that rattles markets",
         "FBI investigates ex-U.S. Counterterrorism Center head Joe Kent for alleged leaks",
-        "Tim Cook on iPhone's Future: 'There's So Much Left That We Can Do' - MacRumors",
-        "Markwayne Mullin\u2019s DHS nomination not at risk from Rand Paul , Thune says - Poli"
+        "This tax season, there's a new deduction for interest on car loans - NPR"
       ]
     },
     {
@@ -92,22 +88,10 @@
       "category": "",
       "yes_price": 0.145,
       "no_price": 0.855,
-      "volume_24h": 693881.5306569998,
-      "liquidity": 5373130.9384,
+      "volume_24h": 694075.1973219998,
+      "liquidity": 5379140.5691,
       "end_date": "2026-03-20",
       "slug": "cbb-hofst-ala-2026-03-20",
-      "recent_news": []
-    },
-    {
-      "id": "1602028",
-      "question": "Saint Louis Billikens vs. Georgia Bulldogs",
-      "category": "",
-      "yes_price": 0.435,
-      "no_price": 0.565,
-      "volume_24h": 684654.8009619997,
-      "liquidity": 2590402.2868,
-      "end_date": "2026-03-19",
-      "slug": "cbb-stlou-ga-2026-03-19",
       "recent_news": []
     },
     {
@@ -116,44 +100,50 @@
       "category": "",
       "yes_price": 0.065,
       "no_price": 0.935,
-      "volume_24h": 620005.0697010003,
-      "liquidity": 401691.9413,
+      "volume_24h": 639026.8251250002,
+      "liquidity": 526837.2527,
       "end_date": "",
       "slug": "us-x-iran-ceasefire-by-march-31",
       "recent_news": [
+        "Israel and Iran attack gas facilities in a major escalation that rattles markets",
         "Japan PM to hold 'difficult' talks with Trump as Iran conflict looms large",
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "Live updates: Iran war news, Trump threatens to \u2018blow up\u2019 world\u2019s largest gas fi",
-        "Live updates: Interest rates steady, Federal Reserve forecasts one rate cut in 2",
-        "Drones over base where Rubio, Hegseth live raise security concerns - The Washing"
+        "Japan PM Takaichi says Trump Washington talks 'difficult' as Iran looms large - "
       ]
     },
     {
-      "id": "1467766",
-      "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?",
+      "id": "1602028",
+      "question": "Saint Louis Billikens vs. Georgia Bulldogs",
       "category": "",
-      "yes_price": 0.7795,
-      "no_price": 0.2205,
-      "volume_24h": 549411.1797609996,
-      "liquidity": 95428.39479,
-      "end_date": "2026-03-31",
-      "slug": "will-crude-oil-cl-hit-high-100-by-end-of-march-658-396-769-971",
-      "recent_news": [
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "As Cuba struggles with power cuts, how is the island holding up?",
-        "Labubu film is official with Paddington director at the helm"
-      ]
+      "yes_price": 0.435,
+      "no_price": 0.565,
+      "volume_24h": 617308.9429009997,
+      "liquidity": 2750652.6606,
+      "end_date": "2026-03-19",
+      "slug": "cbb-stlou-ga-2026-03-19",
+      "recent_news": []
     },
     {
       "id": "1645686",
       "question": "Cavaliers vs. Bulls: O/U 238.5",
       "category": "",
-      "yes_price": 0.555,
-      "no_price": 0.445,
+      "yes_price": 0.56,
+      "no_price": 0.44,
       "volume_24h": 543699.6347190001,
-      "liquidity": 8297.1517,
+      "liquidity": 8490.735,
       "end_date": "2026-03-20",
       "slug": "nba-cle-chi-2026-03-19-total-238pt5",
+      "recent_news": []
+    },
+    {
+      "id": "1467766",
+      "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?",
+      "category": "",
+      "yes_price": 0.7825,
+      "no_price": 0.2175,
+      "volume_24h": 533798.7788329999,
+      "liquidity": 79528.55097,
+      "end_date": "2026-03-31",
+      "slug": "will-crude-oil-cl-hit-high-100-by-end-of-march-658-396-769-971",
       "recent_news": []
     },
     {
@@ -162,17 +152,11 @@
       "category": "",
       "yes_price": 0.135,
       "no_price": 0.865,
-      "volume_24h": 534276.6625929998,
-      "liquidity": 900227.2036,
+      "volume_24h": 530202.8370349996,
+      "liquidity": 908462.7316,
       "end_date": "2026-04-30",
       "slug": "will-the-iranian-regime-fall-by-april-30",
-      "recent_news": [
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "FBI investigates ex-U.S. Counterterrorism Center head Joe Kent for alleged leaks",
-        "As Cuba struggles with power cuts, how is the island holding up?",
-        "Labubu film is official with Paddington director at the helm",
-        "US intelligence chief says Iran's regime 'intact' but 'degraded'"
-      ]
+      "recent_news": []
     },
     {
       "id": "1575630",
@@ -180,8 +164,8 @@
       "category": "",
       "yes_price": 0.425,
       "no_price": 0.575,
-      "volume_24h": 505753.722334,
-      "liquidity": 132831.945,
+      "volume_24h": 513139.61498199997,
+      "liquidity": 136387.3443,
       "end_date": "2026-03-20",
       "slug": "nba-lal-mia-2026-03-19",
       "recent_news": []
@@ -192,15 +176,11 @@
       "category": "",
       "yes_price": 0.085,
       "no_price": 0.915,
-      "volume_24h": 472896.378307,
-      "liquidity": 441559.2817,
+      "volume_24h": 473012.49783099996,
+      "liquidity": 441564.1009,
       "end_date": "2026-05-27",
       "slug": "will-manchester-city-win-the-202526-english-premier-league",
-      "recent_news": [
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "As Cuba struggles with power cuts, how is the island holding up?",
-        "Labubu film is official with Paddington director at the helm"
-      ]
+      "recent_news": []
     },
     {
       "id": "958443",
@@ -208,17 +188,11 @@
       "category": "",
       "yes_price": 0.275,
       "no_price": 0.725,
-      "volume_24h": 468361.07760799857,
-      "liquidity": 907370.0455,
+      "volume_24h": 467213.73427799856,
+      "liquidity": 941545.3317,
       "end_date": "2026-06-30",
       "slug": "will-the-iranian-regime-fall-by-june-30",
-      "recent_news": [
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "FBI investigates ex-U.S. Counterterrorism Center head Joe Kent for alleged leaks",
-        "As Cuba struggles with power cuts, how is the island holding up?",
-        "Labubu film is official with Paddington director at the helm",
-        "US intelligence chief says Iran's regime 'intact' but 'degraded'"
-      ]
+      "recent_news": []
     },
     {
       "id": "1402855",
@@ -226,8 +200,8 @@
       "category": "",
       "yes_price": 0.455,
       "no_price": 0.545,
-      "volume_24h": 424150.95713500003,
-      "liquidity": 148203.3362,
+      "volume_24h": 424150.19349700003,
+      "liquidity": 148313.9726,
       "end_date": "2026-03-20",
       "slug": "nhl-utah-las-2026-03-19",
       "recent_news": []
@@ -238,10 +212,22 @@
       "category": "",
       "yes_price": 0.475,
       "no_price": 0.525,
-      "volume_24h": 406308.7433920004,
-      "liquidity": 110770.3096,
+      "volume_24h": 421274.1870770004,
+      "liquidity": 112736.9203,
       "end_date": "2026-03-20",
       "slug": "nba-lac-nop-2026-03-19",
+      "recent_news": []
+    },
+    {
+      "id": "1631614",
+      "question": "Game Handicap: GEN (-2.5) vs LYON (+2.5)",
+      "category": "",
+      "yes_price": 0.795,
+      "no_price": 0.205,
+      "volume_24h": 393096.43607699976,
+      "liquidity": 54568.7449,
+      "end_date": "2026-03-19",
+      "slug": "lol-gen-ly-2026-03-19-game-handicap-away-2pt5",
       "recent_news": []
     },
     {
@@ -250,31 +236,35 @@
       "category": "",
       "yes_price": 0.09,
       "no_price": 0.91,
-      "volume_24h": 392417.28879200004,
-      "liquidity": 13713.54996,
+      "volume_24h": 392304.28879200004,
+      "liquidity": 13796.95893,
       "end_date": "2026-10-04",
       "slug": "will-renan-santos-finish-in-second-place-in-the-first-round-of-the-2026-brazilian-presidential-election",
-      "recent_news": [
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "As Cuba struggles with power cuts, how is the island holding up?",
-        "Labubu film is official with Paddington director at the helm"
-      ]
+      "recent_news": []
+    },
+    {
+      "id": "1575647",
+      "question": "Bucks vs. Jazz",
+      "category": "",
+      "yes_price": 0.665,
+      "no_price": 0.335,
+      "volume_24h": 368467.30020700034,
+      "liquidity": 115801.1733,
+      "end_date": "2026-03-20",
+      "slug": "nba-mil-uta-2026-03-19",
+      "recent_news": []
     },
     {
       "id": "1467765",
       "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?",
       "category": "",
-      "yes_price": 0.4185,
-      "no_price": 0.5815,
-      "volume_24h": 365855.4183850003,
-      "liquidity": 52080.93273,
+      "yes_price": 0.409,
+      "no_price": 0.591,
+      "volume_24h": 366866.11600800033,
+      "liquidity": 49997.78943,
       "end_date": "2026-03-31",
       "slug": "will-crude-oil-cl-hit-high-110-by-end-of-march-732-945-787-552",
-      "recent_news": [
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "As Cuba struggles with power cuts, how is the island holding up?",
-        "Labubu film is official with Paddington director at the helm"
-      ]
+      "recent_news": []
     }
   ]
 }

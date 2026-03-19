@@ -1,0 +1,12 @@
+{
+  "signals": [
+    {
+      "market_id": "958443",
+      "token_id": "",
+      "side": "BUY",
+      "size": 20,
+      "price": 0.725,
+      "reasoning": "Iranian regime fall by June 30 \u2014 buying NO at $0.725. Market says 27.5% chance of regime change in 3.5 months. US intelligence chief says regime is 'intact but degraded'. Regime changes are historically rare even under heavy military pressure \u2014 IRGC and domestic security apparatus remain functional. My estimate: 10-15% chance of regime fall. Edge ~15% raw, ~13.6% after 2% taker fees. Confidence: medium-high."
+    }
+  ]
+}

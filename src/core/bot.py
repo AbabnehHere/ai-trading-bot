@@ -55,15 +55,20 @@ class TradingBot:
         self._cycle_interval = bot_cfg.get("cycle_interval_seconds", 300)
 
         # Initialize strategies
-        edge_cfg = self._config.get("strategy.edge_detection", {})
-        news_cfg = self._config.get("strategy.news_reactive", {})
-        conv_cfg = self._config.get("strategy.convergence", {})
-
-        strategies = [
-            EdgeFinder(edge_cfg if isinstance(edge_cfg, dict) else {}),
-            NewsReactor(news_cfg if isinstance(news_cfg, dict) else {}),
-            ConvergenceStrategy(conv_cfg if isinstance(conv_cfg, dict) else {}),
-        ]
+        # When Claude Code is the brain, built-in strategies are disabled
+        # to avoid slow RSS/API calls on every cycle. The bot focuses on:
+        # scanning markets, writing reports, and executing Claude Code signals.
+        use_builtin = self._config.get("strategy.builtin_enabled", False)
+        strategies = []
+        if use_builtin:
+            edge_cfg = self._config.get("strategy.edge_detection", {})
+            news_cfg = self._config.get("strategy.news_reactive", {})
+            conv_cfg = self._config.get("strategy.convergence", {})
+            strategies = [
+                EdgeFinder(edge_cfg if isinstance(edge_cfg, dict) else {}),
+                NewsReactor(news_cfg if isinstance(news_cfg, dict) else {}),
+                ConvergenceStrategy(conv_cfg if isinstance(conv_cfg, dict) else {}),
+            ]
 
         # Initialize core components
         self._market_data = MarketDataClient()

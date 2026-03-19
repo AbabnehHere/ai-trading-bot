@@ -51,8 +51,9 @@ class OddsCompiler:
         self._news_feed = NewsFeed()
         self._sentiment = SentimentAnalyzer()
         self._llm = LLMAnalyzer()
-        self._http_client = httpx.Client(timeout=15.0)
+        self._http_client = httpx.Client(timeout=10.0)
         self._odds_api_key = os.getenv("ODDS_API_KEY", "")
+        self._metaculus_disabled = False  # Circuit breaker for 403s
 
     def compile_probability(
         self,
@@ -361,7 +362,11 @@ class OddsCompiler:
         """Check other prediction platforms for their probability estimates.
 
         Metaculus community predictions are well-calibrated and free.
+        Disabled automatically if API returns 403.
         """
+        if self._metaculus_disabled:
+            return None
+
         try:
             response = self._http_client.get(
                 "https://www.metaculus.com/api/questions/",
@@ -372,6 +377,10 @@ class OddsCompiler:
                 },
                 headers={"Accept": "application/json"},
             )
+            if response.status_code == 403:
+                logger.info("Metaculus returned 403 — disabling for this session")
+                self._metaculus_disabled = True
+                return None
             if response.status_code != 200:
                 return None
 

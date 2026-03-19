@@ -81,10 +81,11 @@ class MarketReporter:
                     "knights",
                 ]
             )
-            if not is_sports:
+            if not is_sports and len(opportunities) < 10:
+                # Only fetch news for top 10 non-sports markets (avoid slow RSS)
                 keywords = [w for w in question.split() if len(w) > 3][:3]
                 try:
-                    news = self._news_feed.get_market_relevant_news(keywords, limit=5)
+                    news = self._news_feed.get_market_relevant_news(keywords, limit=3)
                     news_headlines = [a.get("title", "")[:80] for a in news]
                 except Exception as e:
                     logger.debug("News fetch failed for report", error=str(e))

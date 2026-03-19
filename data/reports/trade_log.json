@@ -1,7 +1,23 @@
 {
-  "timestamp": "2026-03-19T11:24:04.755420+00:00",
+  "timestamp": "2026-03-19T11:37:52.641025+00:00",
   "open_positions": [],
   "recent_trades": [
+    {
+      "trade_id": 6,
+      "market_id": "958443",
+      "side": "YES",
+      "direction": "BUY",
+      "price": 0.725,
+      "size": 20.0,
+      "timestamp": "2026-03-19T11:31:20.994170+00:00",
+      "fees": 0.29,
+      "order_type": "limit",
+      "status": "filled",
+      "fill_price": 0.725,
+      "strategy_used": "claude_code",
+      "reasoning": "Iranian regime fall by June 30 \u2014 buying NO at $0.725. Market says 27.5% chance of regime change in 3.5 months. US intelligence chief says regime is 'intact but degraded'. Regime changes are historically rare even under heavy military pressure \u2014 IRGC and domestic security apparatus remain functional. My estimate: 10-15% chance of regime fall. Edge ~15% raw, ~13.6% after 2% taker fees. Confidence: medium-high.",
+      "is_paper": 1
+    },
     {
       "trade_id": 5,
       "market_id": "mkt1",
