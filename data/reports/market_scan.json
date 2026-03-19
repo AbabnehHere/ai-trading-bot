@@ -1,0 +1,226 @@
+{
+  "timestamp": "2026-03-19T11:13:27.699876+00:00",
+  "total_markets_scanned": 200,
+  "opportunities": [
+    {
+      "id": "1602139",
+      "question": "South Florida Bulls vs. Louisville Cardinals",
+      "category": "",
+      "yes_price": 0.365,
+      "no_price": 0.635,
+      "volume_24h": 3257315.4891969957,
+      "liquidity": 3581086.8906,
+      "end_date": "2026-03-19",
+      "slug": "cbb-sfl-lou-2026-03-19"
+    },
+    {
+      "id": "1602165",
+      "question": "Akron Zips vs. Texas Tech Red Raiders",
+      "category": "",
+      "yes_price": 0.255,
+      "no_price": 0.745,
+      "volume_24h": 1324824.5234959992,
+      "liquidity": 3859747.26,
+      "end_date": "2026-03-20",
+      "slug": "cbb-akron-txtech-2026-03-20"
+    },
+    {
+      "id": "1602245",
+      "question": "Missouri Tigers vs. Miami Hurricanes",
+      "category": "",
+      "yes_price": 0.455,
+      "no_price": 0.545,
+      "volume_24h": 1034309.6932339994,
+      "liquidity": 4446042.6868,
+      "end_date": "2026-03-20",
+      "slug": "cbb-missr-mia-2026-03-20"
+    },
+    {
+      "id": "1162940",
+      "question": "US forces enter Iran by March 31?",
+      "category": "",
+      "yes_price": 0.265,
+      "no_price": 0.735,
+      "volume_24h": 820751.7169339991,
+      "liquidity": 422948.7216,
+      "end_date": "2026-03-31",
+      "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519"
+    },
+    {
+      "id": "1602028",
+      "question": "Saint Louis Billikens vs. Georgia Bulldogs",
+      "category": "",
+      "yes_price": 0.435,
+      "no_price": 0.565,
+      "volume_24h": 729736.0579029995,
+      "liquidity": 2445240.5443,
+      "end_date": "2026-03-19",
+      "slug": "cbb-stlou-ga-2026-03-19"
+    },
+    {
+      "id": "1408049",
+      "question": "Counter-Strike: PARIVISION vs NIP (BO3) - BLAST Open Rotterdam Group B",
+      "category": "",
+      "yes_price": 0.865,
+      "no_price": 0.135,
+      "volume_24h": 721208.8645760006,
+      "liquidity": 53628.8357,
+      "end_date": "2026-03-19",
+      "slug": "cs2-prv-nip-2026-03-19"
+    },
+    {
+      "id": "703257",
+      "question": "Will the US confirm that aliens exist before 2027?",
+      "category": "",
+      "yes_price": 0.185,
+      "no_price": 0.815,
+      "volume_24h": 696140.9849180009,
+      "liquidity": 1837278.5223,
+      "end_date": "2026-12-31",
+      "slug": "will-the-us-confirm-that-aliens-exist-before-2027"
+    },
+    {
+      "id": "1602175",
+      "question": "Hofstra Pride vs. Alabama Crimson Tide",
+      "category": "",
+      "yes_price": 0.145,
+      "no_price": 0.855,
+      "volume_24h": 693868.5306569998,
+      "liquidity": 5347760.0422,
+      "end_date": "2026-03-20",
+      "slug": "cbb-hofst-ala-2026-03-20"
+    },
+    {
+      "id": "1466015",
+      "question": "US x Iran ceasefire by March 31?",
+      "category": "",
+      "yes_price": 0.065,
+      "no_price": 0.935,
+      "volume_24h": 613268.7808110004,
+      "liquidity": 530207.076,
+      "end_date": "",
+      "slug": "us-x-iran-ceasefire-by-march-31"
+    },
+    {
+      "id": "1467766",
+      "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?",
+      "category": "",
+      "yes_price": 0.7795,
+      "no_price": 0.2205,
+      "volume_24h": 547961.3578279995,
+      "liquidity": 94807.12105,
+      "end_date": "2026-03-31",
+      "slug": "will-crude-oil-cl-hit-high-100-by-end-of-march-658-396-769-971"
+    },
+    {
+      "id": "1645686",
+      "question": "Cavaliers vs. Bulls: O/U 238.5",
+      "category": "",
+      "yes_price": 0.555,
+      "no_price": 0.445,
+      "volume_24h": 543699.6347190001,
+      "liquidity": 8306.1005,
+      "end_date": "2026-03-20",
+      "slug": "nba-cle-chi-2026-03-19-total-238pt5"
+    },
+    {
+      "id": "1507751",
+      "question": "Will the Iranian regime fall by April 30?",
+      "category": "",
+      "yes_price": 0.135,
+      "no_price": 0.865,
+      "volume_24h": 535010.5572369997,
+      "liquidity": 899952.389,
+      "end_date": "2026-04-30",
+      "slug": "will-the-iranian-regime-fall-by-april-30"
+    },
+    {
+      "id": "1575630",
+      "question": "Lakers vs. Heat",
+      "category": "",
+      "yes_price": 0.425,
+      "no_price": 0.575,
+      "volume_24h": 500571.5672469999,
+      "liquidity": 140843.0665,
+      "end_date": "2026-03-20",
+      "slug": "nba-lal-mia-2026-03-19"
+    },
+    {
+      "id": "566188",
+      "question": "Will Manchester City win the 2025\u201326 English Premier League?",
+      "category": "",
+      "yes_price": 0.085,
+      "no_price": 0.915,
+      "volume_24h": 472892.458307,
+      "liquidity": 441560.9252,
+      "end_date": "2026-05-27",
+      "slug": "will-manchester-city-win-the-202526-english-premier-league"
+    },
+    {
+      "id": "958443",
+      "question": "Will the Iranian regime fall by June 30?",
+      "category": "",
+      "yes_price": 0.275,
+      "no_price": 0.725,
+      "volume_24h": 466184.0604679986,
+      "liquidity": 903252.5095,
+      "end_date": "2026-06-30",
+      "slug": "will-the-iranian-regime-fall-by-june-30"
+    },
+    {
+      "id": "1402855",
+      "question": "Utah vs. Golden Knights",
+      "category": "",
+      "yes_price": 0.455,
+      "no_price": 0.545,
+      "volume_24h": 424019.87018,
+      "liquidity": 148416.6588,
+      "end_date": "2026-03-20",
+      "slug": "nhl-utah-las-2026-03-19"
+    },
+    {
+      "id": "1575642",
+      "question": "Clippers vs. Pelicans",
+      "category": "",
+      "yes_price": 0.475,
+      "no_price": 0.525,
+      "volume_24h": 406003.7433920004,
+      "liquidity": 114851.3721,
+      "end_date": "2026-03-20",
+      "slug": "nba-lac-nop-2026-03-19"
+    },
+    {
+      "id": "1365860",
+      "question": "Will Renan Santos finish in second place in the first round of the 2026 Brazilian presidential election?",
+      "category": "",
+      "yes_price": 0.0895,
+      "no_price": 0.9105,
+      "volume_24h": 392417.28879200004,
+      "liquidity": 13662.13852,
+      "end_date": "2026-10-04",
+      "slug": "will-renan-santos-finish-in-second-place-in-the-first-round-of-the-2026-brazilian-presidential-election"
+    },
+    {
+      "id": "1467765",
+      "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?",
+      "category": "",
+      "yes_price": 0.4185,
+      "no_price": 0.5815,
+      "volume_24h": 365898.5483850003,
+      "liquidity": 52053.95793,
+      "end_date": "2026-03-31",
+      "slug": "will-crude-oil-cl-hit-high-110-by-end-of-march-732-945-787-552"
+    },
+    {
+      "id": "1575647",
+      "question": "Bucks vs. Jazz",
+      "category": "",
+      "yes_price": 0.665,
+      "no_price": 0.335,
+      "volume_24h": 365321.73645900027,
+      "liquidity": 113659.2341,
+      "end_date": "2026-03-20",
+      "slug": "nba-mil-uta-2026-03-19"
+    }
+  ]
+}

@@ -19,6 +19,7 @@ from src.learning.midnight_review import MidnightReview
 from src.learning.performance import PerformanceTracker
 from src.learning.strategy_tuner import StrategyTuner
 from src.learning.trade_journal import TradeJournal
+from src.reporting.market_reporter import MarketReporter
 from src.strategy.convergence import ConvergenceStrategy
 from src.strategy.edge_finder import EdgeFinder
 from src.strategy.news_reactor import NewsReactor
@@ -83,6 +84,9 @@ class TradingBot:
             self._performance,
             review_interval=trading_cfg.get("review_interval", 20),
         )
+
+        # Market reporter — writes data for Claude Code to review
+        self._reporter = MarketReporter(self._market_data)
 
         # Notifications
         self._notifier = NotificationManager()
@@ -188,11 +192,20 @@ class TradingBot:
         # 1. Check existing positions for stop-loss / take-profit
         self._check_existing_positions()
 
-        # 2. Scan for new opportunities
+        # 2. Check for trade signals from Claude Code
+        claude_signals = self._reporter.read_trade_signals()
+        for sig in claude_signals:
+            self._execute_claude_signal(sig)
+            result["trades"] += 1
+
+        # 3. Scan for new opportunities
         candidates = self._analyzer.scan_markets()
         result["markets_scanned"] = len(candidates)
 
-        # 3. Find opportunities
+        # 4. Write market scan report for Claude Code
+        self._reporter.write_market_scan(candidates)
+
+        # 5. Find opportunities via built-in strategies
         signals = self._analyzer.find_opportunities(candidates)
         result["signals"] = len(signals)
 
@@ -247,7 +260,62 @@ class TradingBot:
 
         result["balance"] = f"${self._positions.get_portfolio_value():.2f}"
         result["positions"] = self._positions.get_position_count()
+
+        # Write trade log for Claude Code
+        self._reporter.write_trade_log(
+            trades=self._journal.get_recent_trades(20),
+            positions=self._positions.get_positions(),
+        )
         return result
+
+    def _execute_claude_signal(self, signal: dict[str, Any]) -> None:
+        """Execute a trade signal written by Claude Code.
+
+        Claude Code writes signals to data/reports/signals.json.
+        Format: {"market_id": "...", "token_id": "...", "side": "BUY",
+                 "size": 10, "price": 0.50, "reasoning": "..."}
+        """
+        try:
+            market_id = signal["market_id"]
+            token_id = signal.get("token_id", "")
+            side = signal.get("side", "BUY")
+            size = float(signal.get("size", 0))
+            price = float(signal.get("price", 0))
+            reasoning = signal.get("reasoning", "Claude Code signal")
+
+            if size <= 0 or price <= 0:
+                logger.warning("Invalid Claude signal", signal=signal)
+                return
+
+            # Still run risk checks
+            check = self._risk_manager.check_trade(market_id, side, size, price)
+            if not check.approved:
+                logger.warning(
+                    "Claude signal rejected by risk manager",
+                    reason=check.reason,
+                )
+                return
+
+            self._order_manager.place_order(
+                token_id=token_id,
+                market_id=market_id,
+                side=side,
+                size=size,
+                price=price,
+                strategy="claude_code",
+                reasoning=reasoning,
+            )
+            self._positions.record_fill(market_id, token_id, side, size, price)
+            self._risk_manager.record_trade()
+            logger.info(
+                "Claude Code signal executed",
+                market_id=market_id,
+                side=side,
+                size=size,
+                price=price,
+            )
+        except Exception as e:
+            logger.error("Failed to execute Claude signal", error=str(e))
 
     def _check_existing_positions(self) -> None:
         """Check existing positions for stop-loss and take-profit conditions."""
