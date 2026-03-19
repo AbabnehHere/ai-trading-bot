@@ -21,6 +21,11 @@ Accumulated from trading reviews. Updated by Claude Code during every review cyc
 - Convergence trades ($0.95→$1.00) only yield ~$0.01/share after both-way fees
 - Always calculate edge AFTER fees before signaling
 
+## Position Management
+- ALWAYS include open position markets in every scan — even if they drop out of top volume rankings
+- A position that disappears from the scan can't be monitored for stop-loss/take-profit
+- The Iran regime market dropped out of top 20 by volume and we stopped tracking it — dangerous
+
 ## Bot Operations
 - Don't pkill the bot during git commits — it dies
 - Ghost trades appear if PositionManager reloads from DB during tests (use skip_db_reload)

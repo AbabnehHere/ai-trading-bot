@@ -207,8 +207,9 @@ class TradingBot:
         candidates = self._analyzer.scan_markets()
         result["markets_scanned"] = len(candidates)
 
-        # 4. Write market scan report for Claude Code
-        self._reporter.write_market_scan(candidates)
+        # 4. Write market scan report for Claude Code (always include our positions)
+        position_ids = [p["market_id"] for p in self._positions.get_positions()]
+        self._reporter.write_market_scan(candidates, position_market_ids=position_ids)
 
         # 5. Find opportunities via built-in strategies
         signals = self._analyzer.find_opportunities(candidates)

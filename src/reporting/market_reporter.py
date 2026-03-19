@@ -165,12 +165,23 @@ class MarketReporter:
         words = [w for w in q.split() if len(w) > 2][:5]
         return "+".join(words)
 
-    def write_market_scan(self, markets: list[dict[str, Any]]) -> None:
-        """Write top market opportunities with fresh topic-specific news."""
+    def write_market_scan(
+        self,
+        markets: list[dict[str, Any]],
+        position_market_ids: list[str] | None = None,
+    ) -> None:
+        """Write top market opportunities with fresh topic-specific news.
+
+        Always includes markets where we have open positions, regardless
+        of their volume ranking.
+        """
         opportunities: list[dict[str, Any]] = []
         non_sports_count = 0
+        seen_ids: set[str] = set()
+        open_position_ids = set(position_market_ids or [])
 
-        for market in markets[:80]:
+        # Process markets — include top 80 + any position markets
+        for market in markets:
             outcomes = market.get("outcomes", "[]")
             prices = market.get("outcomePrices", "[]")
 
@@ -184,10 +195,23 @@ class MarketReporter:
             if not prices or len(prices) < 2:
                 continue
 
+            market_id = str(market.get("id", ""))
+            is_our_position = market_id in open_position_ids
+
+            # Skip if already seen (dedup across volume/liquidity/newest)
+            if market_id in seen_ids:
+                continue
+            seen_ids.add(market_id)
+
+            # Skip after 80 markets UNLESS it's our position
+            if non_sports_count >= 80 and not is_our_position:
+                continue
+
             yes_price = float(prices[0]) if prices else 0
             no_price = float(prices[1]) if len(prices) > 1 else 0
 
-            if yes_price < 0.05 or yes_price > 0.95:
+            # Skip extreme prices UNLESS it's our position
+            if (yes_price < 0.05 or yes_price > 0.95) and not is_our_position:
                 continue
 
             question = market.get("question", "")
@@ -211,7 +235,8 @@ class MarketReporter:
                 asset_price = self._price_checker.get_price(detected_asset)
 
             entry: dict[str, Any] = {
-                "id": market.get("id", ""),
+                "id": market_id,
+                "is_our_position": is_our_position,
                 "question": question,
                 "category": market.get("category", ""),
                 "yes_price": yes_price,
