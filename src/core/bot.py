@@ -328,6 +328,8 @@ class TradingBot:
             try:
                 token_id = pos["token_id"]
                 market_id = pos["market_id"]
+                if not token_id:
+                    continue  # Skip positions without token_id (e.g. reloaded from DB)
                 mid = self._market_data.get_midpoint(token_id)
                 pnl = self._positions.get_position_pnl(market_id, mid)
                 pnl_pct = pnl["pnl_pct"]
