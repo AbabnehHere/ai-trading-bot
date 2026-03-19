@@ -1,6 +1,18 @@
 {
-  "timestamp": "2026-03-19T11:54:53.260752+00:00",
-  "open_positions": [],
+  "timestamp": "2026-03-19T11:59:28.263119+00:00",
+  "open_positions": [
+    {
+      "key": "958443:",
+      "market_id": "958443",
+      "token_id": "",
+      "side": "YES",
+      "size": 20.0,
+      "avg_entry_price": 0.725,
+      "avg_cost_basis": 0.7394999999999999,
+      "total_fees": 0.29,
+      "opened_at": "2026-03-19T11:59:21.924152+00:00"
+    }
+  ],
   "recent_trades": [
     {
       "trade_id": 6,

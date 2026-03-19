@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-19T11:54:53.252200+00:00",
+  "timestamp": "2026-03-19T11:59:28.257209+00:00",
   "total_markets_scanned": 200,
   "opportunities": [
     {
@@ -8,8 +8,8 @@
       "category": "",
       "yes_price": 0.365,
       "no_price": 0.635,
-      "volume_24h": 3295302.747255996,
-      "liquidity": 4429331.9956,
+      "volume_24h": 3305455.589755996,
+      "liquidity": 4725641.6409,
       "end_date": "2026-03-19",
       "slug": "cbb-sfl-lou-2026-03-19",
       "recent_news": []
@@ -20,8 +20,8 @@
       "category": "",
       "yes_price": 0.255,
       "no_price": 0.745,
-      "volume_24h": 1326394.2434890012,
-      "liquidity": 4054528.9593,
+      "volume_24h": 1326517.6334890006,
+      "liquidity": 4041245.3688,
       "end_date": "2026-03-20",
       "slug": "cbb-akron-txtech-2026-03-20",
       "recent_news": []
@@ -32,8 +32,8 @@
       "category": "",
       "yes_price": 0.455,
       "no_price": 0.545,
-      "volume_24h": 1034880.2031089993,
-      "liquidity": 4746104.9365,
+      "volume_24h": 1034901.2031089993,
+      "liquidity": 4723534.3099,
       "end_date": "2026-03-20",
       "slug": "cbb-missr-mia-2026-03-20",
       "recent_news": []
@@ -42,10 +42,10 @@
       "id": "1408049",
       "question": "Counter-Strike: PARIVISION vs NIP (BO3) - BLAST Open Rotterdam Group B",
       "category": "",
-      "yes_price": 0.695,
-      "no_price": 0.305,
-      "volume_24h": 789833.4999130007,
-      "liquidity": 52460.8001,
+      "yes_price": 0.63,
+      "no_price": 0.37,
+      "volume_24h": 801113.6160950004,
+      "liquidity": 52266.5159,
       "end_date": "2026-03-19",
       "slug": "cs2-prv-nip-2026-03-19",
       "recent_news": []
@@ -56,8 +56,8 @@
       "category": "",
       "yes_price": 0.265,
       "no_price": 0.735,
-      "volume_24h": 740317.7321589997,
-      "liquidity": 511348.0509,
+      "volume_24h": 738748.3010649998,
+      "liquidity": 485430.4366,
       "end_date": "2026-03-31",
       "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519",
       "recent_news": [
@@ -72,13 +72,13 @@
       "category": "",
       "yes_price": 0.185,
       "no_price": 0.815,
-      "volume_24h": 698643.2426530012,
-      "liquidity": 1917902.591,
+      "volume_24h": 702281.5159980011,
+      "liquidity": 1921170.5912,
       "end_date": "2026-12-31",
       "slug": "will-the-us-confirm-that-aliens-exist-before-2027",
       "recent_news": [
         "Israel and Iran attack gas facilities in a major escalation that rattles markets",
-        "This tax season, there's a new deduction for interest on car loans - NPR",
+        "GOP debate on SAVE America Act morphs into \u2018circular firing squad\u2019 - The Hill",
         "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al"
       ]
     },
@@ -89,7 +89,7 @@
       "yes_price": 0.145,
       "no_price": 0.855,
       "volume_24h": 694075.1973219998,
-      "liquidity": 5626607.2388,
+      "liquidity": 5575673.8217,
       "end_date": "2026-03-20",
       "slug": "cbb-hofst-ala-2026-03-20",
       "recent_news": []
@@ -100,8 +100,8 @@
       "category": "",
       "yes_price": 0.065,
       "no_price": 0.935,
-      "volume_24h": 636030.3549620002,
-      "liquidity": 502016.9651,
+      "volume_24h": 635308.3148200002,
+      "liquidity": 498846.3858,
       "end_date": "",
       "slug": "us-x-iran-ceasefire-by-march-31",
       "recent_news": [
@@ -117,7 +117,7 @@
       "yes_price": 0.435,
       "no_price": 0.565,
       "volume_24h": 610165.1270349997,
-      "liquidity": 3289675.819,
+      "liquidity": 2966864.5546,
       "end_date": "2026-03-19",
       "slug": "cbb-stlou-ga-2026-03-19",
       "recent_news": []
@@ -126,17 +126,29 @@
       "id": "1467766",
       "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?",
       "category": "",
-      "yes_price": 0.808,
-      "no_price": 0.192,
-      "volume_24h": 604885.3224350002,
-      "liquidity": 133604.06191,
+      "yes_price": 0.8225,
+      "no_price": 0.1775,
+      "volume_24h": 604868.2516110002,
+      "liquidity": 133478.1879,
       "end_date": "2026-03-31",
       "slug": "will-crude-oil-cl-hit-high-100-by-end-of-march-658-396-769-971",
       "recent_news": [
+        "GOP debate on SAVE America Act morphs into \u2018circular firing squad\u2019 - The Hill",
         "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "As Cuba struggles with power cuts, how is the island holding up?",
-        "Labubu film is official with Paddington director at the helm"
+        "As Cuba struggles with power cuts, how is the island holding up?"
       ]
+    },
+    {
+      "id": "1575630",
+      "question": "Lakers vs. Heat",
+      "category": "",
+      "yes_price": 0.445,
+      "no_price": 0.555,
+      "volume_24h": 550817.5652220001,
+      "liquidity": 189567.0678,
+      "end_date": "2026-03-20",
+      "slug": "nba-lal-mia-2026-03-19",
+      "recent_news": []
     },
     {
       "id": "1645686",
@@ -145,7 +157,7 @@
       "yes_price": 0.555,
       "no_price": 0.445,
       "volume_24h": 543701.8569400001,
-      "liquidity": 8455.1167,
+      "liquidity": 8551.5179,
       "end_date": "2026-03-20",
       "slug": "nba-cle-chi-2026-03-19-total-238pt5",
       "recent_news": []
@@ -156,22 +168,10 @@
       "category": "",
       "yes_price": 0.135,
       "no_price": 0.865,
-      "volume_24h": 531188.4524789995,
-      "liquidity": 919728.909,
+      "volume_24h": 530880.3073999996,
+      "liquidity": 928609.546,
       "end_date": "2026-04-30",
       "slug": "will-the-iranian-regime-fall-by-april-30",
-      "recent_news": []
-    },
-    {
-      "id": "1575630",
-      "question": "Lakers vs. Heat",
-      "category": "",
-      "yes_price": 0.425,
-      "no_price": 0.575,
-      "volume_24h": 518472.70353100006,
-      "liquidity": 165270.3463,
-      "end_date": "2026-03-20",
-      "slug": "nba-lal-mia-2026-03-19",
       "recent_news": []
     },
     {
@@ -180,8 +180,8 @@
       "category": "",
       "yes_price": 0.085,
       "no_price": 0.915,
-      "volume_24h": 473123.7295629999,
-      "liquidity": 439346.5157,
+      "volume_24h": 473244.3916599999,
+      "liquidity": 441583.8673,
       "end_date": "2026-05-27",
       "slug": "will-manchester-city-win-the-202526-english-premier-league",
       "recent_news": []
@@ -192,8 +192,8 @@
       "category": "",
       "yes_price": 0.275,
       "no_price": 0.725,
-      "volume_24h": 462020.98700899875,
-      "liquidity": 970818.1268,
+      "volume_24h": 461820.98700899875,
+      "liquidity": 933652.1043,
       "end_date": "2026-06-30",
       "slug": "will-the-iranian-regime-fall-by-june-30",
       "recent_news": []
@@ -204,8 +204,8 @@
       "category": "",
       "yes_price": 0.455,
       "no_price": 0.545,
-      "volume_24h": 424173.5571320001,
-      "liquidity": 148774.6484,
+      "volume_24h": 424163.5571320001,
+      "liquidity": 148983.3362,
       "end_date": "2026-03-20",
       "slug": "nhl-utah-las-2026-03-19",
       "recent_news": []
@@ -216,8 +216,8 @@
       "category": "",
       "yes_price": 0.475,
       "no_price": 0.525,
-      "volume_24h": 421683.7912260004,
-      "liquidity": 113424.7105,
+      "volume_24h": 420693.5879990005,
+      "liquidity": 118228.9173,
       "end_date": "2026-03-20",
       "slug": "nba-lac-nop-2026-03-19",
       "recent_news": []
@@ -226,10 +226,10 @@
       "id": "1631614",
       "question": "Game Handicap: GEN (-2.5) vs LYON (+2.5)",
       "category": "",
-      "yes_price": 0.805,
-      "no_price": 0.195,
-      "volume_24h": 399178.8733499998,
-      "liquidity": 51510.1311,
+      "yes_price": 0.795,
+      "no_price": 0.205,
+      "volume_24h": 401289.3406659998,
+      "liquidity": 51143.0006,
       "end_date": "2026-03-19",
       "slug": "lol-gen-ly-2026-03-19-game-handicap-away-2pt5",
       "recent_news": []
@@ -241,9 +241,21 @@
       "yes_price": 0.09,
       "no_price": 0.91,
       "volume_24h": 392319.558792,
-      "liquidity": 13616.85745,
+      "liquidity": 13650.71293,
       "end_date": "2026-10-04",
       "slug": "will-renan-santos-finish-in-second-place-in-the-first-round-of-the-2026-brazilian-presidential-election",
+      "recent_news": []
+    },
+    {
+      "id": "1575627",
+      "question": "Pistons vs. Wizards",
+      "category": "",
+      "yes_price": 0.915,
+      "no_price": 0.085,
+      "volume_24h": 383324.24812999985,
+      "liquidity": 231124.5155,
+      "end_date": "2026-03-19",
+      "slug": "nba-det-was-2026-03-19",
       "recent_news": []
     },
     {
@@ -252,22 +264,10 @@
       "category": "",
       "yes_price": 0.665,
       "no_price": 0.335,
-      "volume_24h": 370089.1015450004,
-      "liquidity": 113753.8888,
+      "volume_24h": 370417.6920940004,
+      "liquidity": 113699.1079,
       "end_date": "2026-03-20",
       "slug": "nba-mil-uta-2026-03-19",
-      "recent_news": []
-    },
-    {
-      "id": "1467765",
-      "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?",
-      "category": "",
-      "yes_price": 0.4095,
-      "no_price": 0.5905,
-      "volume_24h": 366312.90573000035,
-      "liquidity": 49265.52258,
-      "end_date": "2026-03-31",
-      "slug": "will-crude-oil-cl-hit-high-110-by-end-of-march-732-945-787-552",
       "recent_news": []
     }
   ]

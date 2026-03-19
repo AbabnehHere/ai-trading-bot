@@ -4,6 +4,7 @@ Tracks all open positions, calculates P&L, and provides portfolio overview.
 Properly accounts for trading fees on entry and exit.
 """
 
+from pathlib import Path
 from typing import Any
 
 from src.data.market_data import MarketDataClient
@@ -46,6 +47,95 @@ class PositionManager:
         self._peak_value = initial_balance
         self._total_fees_paid = 0.0
         self._realized_pnl = 0.0
+
+        # Reload positions from database on startup
+        self._reload_from_db(initial_balance)
+
+    def _reload_from_db(self, initial_balance: float) -> None:
+        """Reload positions from the trades database on startup.
+
+        Reconstructs position state from BUY/SELL history so the bot
+        doesn't lose track of positions after a restart.
+        """
+        import sqlite3
+
+        db_path = "data/trades.db"
+        if not Path(db_path).exists():
+            return
+
+        try:
+            conn = sqlite3.connect(db_path)
+            conn.row_factory = sqlite3.Row
+            trades = conn.execute(
+                """SELECT market_id, direction, price, size, fees
+                   FROM trades WHERE status = 'filled'
+                   ORDER BY timestamp ASC"""
+            ).fetchall()
+            conn.close()
+
+            if not trades:
+                return
+
+            total_spent = 0.0
+            total_received = 0.0
+            total_fees = 0.0
+
+            for t in trades:
+                mkt = t["market_id"]
+                side = t["direction"]
+                price = float(t["price"])
+                size = float(t["size"])
+                fees = float(t["fees"] or 0)
+                total_fees += fees
+
+                if side == "BUY":
+                    total_spent += size * price + fees
+                    key = f"{mkt}:"
+                    if key in self._positions:
+                        pos = self._positions[key]
+                        total_size = pos["size"] + size
+                        pos["avg_entry_price"] = safe_divide(
+                            pos["avg_entry_price"] * pos["size"] + price * size,
+                            total_size,
+                        )
+                        pos["avg_cost_basis"] = safe_divide(
+                            pos["avg_cost_basis"] * pos["size"]
+                            + (price + price * self._fee_rate) * size,
+                            total_size,
+                        )
+                        pos["size"] = total_size
+                        pos["total_fees"] += fees
+                    else:
+                        self._positions[key] = {
+                            "market_id": mkt,
+                            "token_id": "",
+                            "side": "YES",
+                            "avg_entry_price": price,
+                            "avg_cost_basis": price + price * self._fee_rate,
+                            "size": size,
+                            "total_fees": fees,
+                            "opened_at": now_iso(),
+                        }
+                elif side == "SELL":
+                    total_received += size * price - fees
+                    key = f"{mkt}:"
+                    if key in self._positions:
+                        self._positions[key]["size"] -= size
+                        if self._positions[key]["size"] <= 0.001:
+                            del self._positions[key]
+
+            self._cash = initial_balance - total_spent + total_received
+            self._total_fees_paid = total_fees
+
+            if self._positions:
+                logger.info(
+                    "Positions reloaded from DB",
+                    positions=len(self._positions),
+                    cash=f"${self._cash:.2f}",
+                )
+
+        except Exception as e:
+            logger.warning("Failed to reload positions from DB", error=str(e))
 
     def record_fill(
         self,
