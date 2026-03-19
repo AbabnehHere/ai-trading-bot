@@ -59,6 +59,8 @@ class PriceChecker:
 
     def __init__(self) -> None:
         self._http = httpx.Client(timeout=10.0)
+        self._cache: dict[str, tuple[float, float]] = {}  # asset -> (price, timestamp)
+        self._cache_ttl = 300  # 5 minutes
 
     def detect_asset(self, question: str) -> str | None:
         """Detect if a market question references a priced asset."""
@@ -71,12 +73,28 @@ class PriceChecker:
     def get_price(self, asset: str) -> dict[str, Any] | None:
         """Get cross-referenced price from multiple sources.
 
+        Caches results for 5 minutes to avoid rate limits.
+
         Returns:
             Dict with price, sources used, and confidence.
         """
+        import time
+
         config = PRICE_PATTERNS.get(asset)
         if not config:
             return None
+
+        # Check cache
+        if asset in self._cache:
+            cached_price, cached_time = self._cache[asset]
+            if time.time() - cached_time < self._cache_ttl:
+                return {
+                    "asset": asset,
+                    "price": cached_price,
+                    "unit": config["unit"],
+                    "sources": [{"source": "cache", "price": cached_price}],
+                    "warning": "",
+                }
 
         prices: list[dict[str, Any]] = []
 
@@ -121,6 +139,12 @@ class PriceChecker:
                     f"Using API price. Verify manually before trading."
                 )
                 best_price = api_avg  # Trust API, flag for review
+
+        # Cache the result
+        if best_price > 0:
+            import time
+
+            self._cache[asset] = (best_price, time.time())
 
         return {
             "asset": asset,
