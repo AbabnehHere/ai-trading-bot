@@ -94,7 +94,7 @@ class MarketReporter:
         try:
             url = f"https://news.google.com/rss/search?q={query}&hl=en"
             feed = feedparser.parse(url)
-            cutoff = datetime.now(UTC) - timedelta(hours=12)
+            cutoff = datetime.now(UTC) - timedelta(hours=24)
             results = []
 
             for entry in feed.entries[:15]:
@@ -116,9 +116,15 @@ class MarketReporter:
                     continue
                 # Strip source suffix (e.g., " - CNN")
                 title = re.sub(r"\s*-\s*[A-Z][A-Za-z\s.]+$", "", title)
+                # Get summary from description field
+                summary = entry.get("summary", entry.get("description", ""))
+                # Strip HTML tags
+                summary = re.sub(r"<[^>]+>", "", summary)[:150]
+
                 results.append(
                     {
                         "title": title[:100],
+                        "summary": summary,
                         "published": pub_dt.strftime("%H:%M UTC"),
                     }
                 )
@@ -214,7 +220,7 @@ class MarketReporter:
                 "liquidity": float(market.get("liquidityNum", 0) or 0),
                 "end_date": market.get("endDateIso", ""),
                 "slug": slug,
-                "recent_news": [n["title"] for n in news_items],
+                "recent_news": [f"{n['title']} — {n.get('summary', '')}" for n in news_items],
                 "news_times": [n["published"] for n in news_items],
             }
             if asset_price:

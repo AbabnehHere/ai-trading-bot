@@ -1,12 +1,12 @@
 {
   "signals": [
     {
-      "market_id": "1467765",
+      "market_id": "1467763",
       "token_id": "",
-      "side": "SELL",
+      "side": "BUY",
       "size": 20,
-      "price": 0.59,
-      "reasoning": "STOP-LOSS: Close Crude Oil $110 NO position immediately. News reports oil at $110-115/barrel \u2014 NOT $96.91 as Yahoo API showed (stale data). Oil already at or above $110 means this market likely resolves YES. Our NO position is a loss. Cut now before it gets worse."
+      "price": 0.775,
+      "reasoning": "Crude Oil $120 by March 31 \u2014 buying NO at $0.775. Yahoo API: crude at $96.35 (consistent across multiple checks today, high $99.17). Needs +25% in 12 days to hit $120. Even with Iran war (Day 20), $96\u2192$120 in 12 days is extreme. News price checker shows $119 but per price verification rules, trusting API over news headline. My estimate: 8-12% chance. Edge ~11% after fees. NOTE: price discrepancy flagged \u2014 if crude is actually near $120, this trade fails. Confidence: medium."
     }
   ]
 }

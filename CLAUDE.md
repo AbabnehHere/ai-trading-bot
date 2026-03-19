@@ -72,6 +72,11 @@ Market reviews, strategy reviews, price fetches, news fetches, log writes, and
 database queries should all run autonomously without asking the user. Permissions
 are configured in `.claude/settings.local.json`.
 
+### News Analysis Rules
+- **Always read summaries, not just headlines.** A headline is ambiguous — "Oil $110" could mean forecast, current, or historical. The summary gives context.
+- Headlines without summaries should be treated as low-confidence signals.
+- When fetching news for a market, use topic-specific Google News search, not generic RSS feeds.
+
 ### Price Verification Rules
 - **Trust API prices over news headlines.** Yahoo Finance and CoinGecko return structured data fields. News headlines are ambiguous — "$110" could mean forecast, target, historical, or current.
 - **If API and news prices conflict by >10%, DO NOT trade.** Flag it for manual review. Never panic-trade on a price discrepancy.
