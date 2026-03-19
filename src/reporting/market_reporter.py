@@ -224,14 +224,14 @@ class MarketReporter:
             news_items: list[dict[str, str]] = []
 
             # Fetch Google News for top 15 non-sports markets
-            if non_sports_count <= 15:
+            if non_sports_count <= 8:
                 query = self._extract_search_query(question)
                 news_items = self._fetch_google_news(query, max_items=4)
 
-            # Check for asset price data
+            # Check for asset price data (only first 5 to avoid rate limits)
             asset_price: dict[str, Any] | None = None
             detected_asset = self._price_checker.detect_asset(question)
-            if detected_asset and non_sports_count <= 15:
+            if detected_asset and non_sports_count <= 5:
                 asset_price = self._price_checker.get_price(detected_asset)
 
             entry: dict[str, Any] = {

@@ -21,6 +21,11 @@ Accumulated from trading reviews. Updated by Claude Code during every review cyc
 - Convergence trades ($0.95→$1.00) only yield ~$0.01/share after both-way fees
 - Always calculate edge AFTER fees before signaling
 
+## Rate Limiting
+- Yahoo Finance returns 429 after ~45 calls in a session — don't price-check every 60s cycle
+- Limit price checks to top 5 asset markets per cycle, not 15
+- Limit Google News fetches to top 8 markets per cycle — 15 was too many, caused stuck cycles
+
 ## Position Management
 - ALWAYS include open position markets in every scan — even if they drop out of top volume rankings
 - A position that disappears from the scan can't be monitored for stop-loss/take-profit
