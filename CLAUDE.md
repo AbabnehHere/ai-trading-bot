@@ -64,6 +64,8 @@ After EVERY market review and strategy review, record lessons learned:
 - Mistakes made (e.g., "ghost trades from pkill during commit")
 - Edge cases found (e.g., "crude oil 52-week high was $119, so $110 isn't impossible")
 - Append lessons to `data/logs/claude_review.log` with each review entry
+- Add durable lessons to `.claude/lessons_learned.md` (the permanent record)
+- **Read `.claude/lessons_learned.md` at the start of every session** to avoid repeating mistakes
 
 ### Never Ask for Permission During Reviews
 Market reviews, strategy reviews, price fetches, news fetches, log writes, and
