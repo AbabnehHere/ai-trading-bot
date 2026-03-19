@@ -17,6 +17,8 @@ logger = get_logger(__name__)
 
 DB_PATH = "data/trades.db"
 POLYMARKET_API_BASE = "https://clob.polymarket.com"
+TAKER_FEE_RATE = 0.02
+MAKER_FEE_RATE = 0.0
 
 
 class OrderManager:
@@ -86,6 +88,7 @@ class OrderManager:
         if self._paper:
             order_id = f"paper_{self._next_paper_id}"
             self._next_paper_id += 1
+            fees = size * price * TAKER_FEE_RATE
             result = {
                 "order_id": order_id,
                 "market_id": market_id,
@@ -93,6 +96,7 @@ class OrderManager:
                 "side": side,
                 "size": size,
                 "price": price,
+                "fees": fees,
                 "status": "filled",
                 "fill_price": price,
                 "is_paper": True,
@@ -117,6 +121,7 @@ class OrderManager:
                     "side": side,
                     "size": size,
                     "price": price,
+                    "fees": size * price * TAKER_FEE_RATE,
                     "status": "pending",
                     "fill_price": None,
                     "is_paper": False,
@@ -188,7 +193,7 @@ class OrderManager:
                     order["price"],
                     order["size"],
                     now_iso(),
-                    0.0,
+                    order.get("fees", 0.0),
                     "limit",
                     order.get("status", "pending"),
                     order.get("fill_price"),

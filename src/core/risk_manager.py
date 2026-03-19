@@ -63,7 +63,7 @@ class RiskManager:
         self._daily_losses: float = 0.0
         self._daily_trade_count: int = 0
         self._last_loss_time: datetime | None = None
-        self._current_day: str = ""
+        self._current_day: str = datetime.now(UTC).strftime("%Y-%m-%d")
         self._circuit_breaker_active = False
 
     def check_trade(

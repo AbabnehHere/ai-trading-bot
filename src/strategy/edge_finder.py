@@ -1,7 +1,8 @@
 """Core strategy: find mispriced markets.
 
 Compares Polymarket prices against independently compiled "true odds"
-to find edges where the market is mispriced.
+to find edges where the market is mispriced. Only trades when the edge
+is positive AFTER accounting for fees.
 """
 
 from typing import Any
@@ -26,90 +27,132 @@ class EdgeFinder(BaseStrategy):
         self._min_edge = cfg.get("min_edge_threshold", 0.08)
         self._confidence_required = cfg.get("confidence_required", 0.7)
         self._min_liquidity = cfg.get("min_liquidity_usd", 5000)
-        self._min_time_to_resolution = cfg.get("min_time_to_resolution_hours", 24)
+        self._min_sources = cfg.get("min_independent_sources", 2)
         self._odds_compiler = OddsCompiler()
 
     def evaluate(self, market_data: dict[str, Any]) -> TradeSignal | None:
         """Evaluate a market for mispricing edge.
 
+        Only generates a signal when:
+        1. We have independent probability sources (not derived from market price)
+        2. The edge exceeds minimum threshold AFTER fees
+        3. Confidence meets the required threshold
+        4. Market has sufficient liquidity
+
         Args:
-            market_data: Full market context including:
-                - market_id, question, category
-                - tokens: list of {token_id, outcome, price}
-                - volume, liquidity
-                - keywords: list of relevant keywords
+            market_data: Full market context.
 
         Returns:
-            TradeSignal if edge exceeds minimum threshold, None otherwise.
+            TradeSignal if profitable edge found, None otherwise.
         """
         market_id = market_data.get("id", "")
         question = market_data.get("question", "")
         tokens = market_data.get("tokens", [])
         liquidity = market_data.get("liquidity", 0)
         keywords = market_data.get("keywords", [])
+        category = market_data.get("category", "")
 
-        # Filter: minimum liquidity
         if liquidity < self._min_liquidity:
             return None
 
-        # Evaluate each token (YES/NO)
-        for token in tokens:
-            token_id = token.get("token_id", "")
-            token.get("outcome", "")
-            market_price = float(token.get("price", 0))
+        # Use question words as fallback keywords
+        if not keywords:
+            keywords = [w for w in question.split() if len(w) > 3][:5]
 
-            if market_price <= 0.05 or market_price >= 0.95:
-                continue  # Skip extreme prices
+        # Get the YES token
+        yes_token = next((t for t in tokens if t.get("outcome") == "Yes"), None)
+        no_token = next((t for t in tokens if t.get("outcome") == "No"), None)
 
-            # Compile independent probability estimate
-            compiled = self._odds_compiler.compile_probability(
-                question, market_price, keywords or [question]
-            )
-
-            estimated_prob = compiled["probability"]
-            confidence = compiled["confidence"]
-            edge = compiled["edge"]
-
-            # Check if edge and confidence meet thresholds
-            if abs(edge) < self._min_edge:
-                continue
-            if confidence < self._confidence_required:
-                continue
-
-            # Determine trade direction
-            if edge > 0:
-                # Market underpriced — BUY
-                side = "BUY"
+        if not yes_token:
+            # Try first token if outcomes aren't labeled
+            if tokens:
+                yes_token = tokens[0]
+                no_token = tokens[1] if len(tokens) > 1 else None
             else:
-                # Market overpriced — could buy NO (or sell YES)
-                side = "BUY"  # Buy the opposite token
-                # Find the other token
-                other_tokens = [t for t in tokens if t.get("token_id") != token_id]
-                if other_tokens:
-                    token_id = other_tokens[0].get("token_id", token_id)
-                    market_price = float(other_tokens[0].get("price", market_price))
-                    edge = abs(edge)
+                return None
 
-            reasoning = (
-                f"Edge detected on '{question[:60]}': "
-                f"market={market_price:.3f}, estimated={estimated_prob:.3f}, "
-                f"edge={edge:.3f}, confidence={confidence:.2f}"
-            )
-            logger.info("Edge found", market_id=market_id, edge=edge, confidence=confidence)
+        market_price = float(yes_token.get("price", 0))
+        if market_price <= 0.05 or market_price >= 0.95:
+            return None  # Skip extreme prices — not enough room for edge
 
-            return TradeSignal(
-                market_id=market_id,
-                token_id=token_id,
-                side=side,
-                confidence=confidence,
-                edge=edge,
-                suggested_size=0,  # Sized by risk manager
-                price=market_price,
-                reasoning=reasoning,
-                strategy_name=self.get_name(),
-            )
+        # Compile INDEPENDENT probability estimate
+        compiled = self._odds_compiler.compile_probability(
+            market_question=question,
+            market_price=market_price,
+            keywords=keywords,
+            category=category,
+        )
 
-        return None
+        # Reject if we have no independent estimate
+        if not compiled.get("has_independent_estimate", False):
+            return None
+
+        # Reject if not enough independent sources
+        if compiled.get("num_sources", 0) < self._min_sources:
+            return None
+
+        estimated_prob = compiled["probability"]
+        confidence = compiled["confidence"]
+        raw_edge = compiled["edge"]
+        edge_after_fees = compiled["edge_after_fees"]
+
+        # The critical check: is there edge AFTER fees?
+        if edge_after_fees <= 0:
+            return None
+
+        # Is the raw edge large enough to be meaningful?
+        if abs(raw_edge) < self._min_edge:
+            return None
+
+        # Is our confidence high enough?
+        if confidence < self._confidence_required:
+            return None
+
+        # Determine trade direction
+        if raw_edge > 0:
+            # Our estimate > market price → buy YES
+            side = "BUY"
+            token_id = yes_token.get("token_id", "")
+            trade_price = market_price
+        else:
+            # Our estimate < market price → buy NO
+            side = "BUY"
+            if no_token:
+                token_id = no_token.get("token_id", "")
+                trade_price = float(no_token.get("price", 1 - market_price))
+            else:
+                return None
+
+        sources_str = ", ".join(s["source"] for s in compiled.get("sources", []))
+        reasoning = (
+            f"Edge on '{question[:50]}': "
+            f"market={market_price:.3f}, "
+            f"estimated={estimated_prob:.3f}, "
+            f"raw_edge={raw_edge:+.3f}, "
+            f"edge_after_fees={edge_after_fees:+.3f}, "
+            f"confidence={confidence:.2f}, "
+            f"sources=[{sources_str}]"
+        )
+        logger.info(
+            "Edge found",
+            market_id=market_id,
+            raw_edge=raw_edge,
+            edge_after_fees=edge_after_fees,
+            confidence=confidence,
+            sources=compiled.get("num_sources", 0),
+        )
+
+        return TradeSignal(
+            market_id=market_id,
+            token_id=token_id,
+            side=side,
+            confidence=confidence,
+            edge=edge_after_fees,  # Use fee-adjusted edge
+            suggested_size=0,  # Sized by risk manager
+            price=trade_price,
+            reasoning=reasoning,
+            strategy_name=self.get_name(),
+        )
 
     def get_name(self) -> str:
         """Return strategy name."""
