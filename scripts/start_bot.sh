@@ -74,13 +74,17 @@ echo ""
 echo "============================================"
 echo "  Bot is running in the background"
 echo "============================================"
+
+# Start web dashboard
+echo -e "${GREEN}Starting dashboard at http://localhost:8050${NC}"
+nohup python scripts/dashboard_web.py > /dev/null 2>&1 &
+DASH_PID=$!
+echo "Dashboard PID: $DASH_PID"
+
 echo ""
-echo "  Monitor:     tail -f data/logs/bot.log"
-echo "  Dashboard:   python scripts/dashboard.py"
-echo "  Stop:        pkill -f 'main.py --mode'"
-echo ""
-echo "  The bot will keep running even if you"
-echo "  close this terminal."
+echo "  Dashboard:   http://localhost:8050"
+echo "  Logs:        tail -f data/logs/bot.log"
+echo "  Stop all:    pkill -f 'main.py --mode'; pkill -f 'dashboard_web'"
 echo ""
 echo "  For Claude Code reviews, open Claude Code"
 echo "  and say: 'start the bot reviews'"
