@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from src.data.market_data import MarketDataClient
+from src.data.news_feed import NewsFeed
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -23,6 +24,7 @@ class MarketReporter:
     def __init__(self, market_data: MarketDataClient) -> None:
         """Initialize the market reporter."""
         self._market_data = market_data
+        self._news_feed = NewsFeed()
         REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
     def write_market_scan(self, markets: list[dict[str, Any]]) -> None:
@@ -54,10 +56,43 @@ class MarketReporter:
             if yes_price < 0.05 or yes_price > 0.95:
                 continue
 
+            question = market.get("question", "")
+            # Fetch news for non-sports markets
+            news_headlines: list[str] = []
+            is_sports = any(
+                kw in question.lower()
+                for kw in [
+                    " vs.",
+                    " vs ",
+                    "bulls",
+                    "tigers",
+                    "cardinals",
+                    "zips",
+                    "raiders",
+                    "billikens",
+                    "pride",
+                    "cavaliers",
+                    "lakers",
+                    "clippers",
+                    "bucks",
+                    "jazz",
+                    "heat",
+                    "pelicans",
+                    "knights",
+                ]
+            )
+            if not is_sports:
+                keywords = [w for w in question.split() if len(w) > 3][:3]
+                try:
+                    news = self._news_feed.get_market_relevant_news(keywords, limit=5)
+                    news_headlines = [a.get("title", "")[:80] for a in news]
+                except Exception as e:
+                    logger.debug("News fetch failed for report", error=str(e))
+
             opportunities.append(
                 {
                     "id": market.get("id", ""),
-                    "question": market.get("question", ""),
+                    "question": question,
                     "category": market.get("category", ""),
                     "yes_price": yes_price,
                     "no_price": no_price,
@@ -65,13 +100,14 @@ class MarketReporter:
                     "liquidity": float(market.get("liquidityNum", 0) or 0),
                     "end_date": market.get("endDateIso", ""),
                     "slug": market.get("slug", ""),
+                    "recent_news": news_headlines,
                 }
             )
 
         report = {
             "timestamp": datetime.now(UTC).isoformat(),
             "total_markets_scanned": len(markets),
-            "opportunities": opportunities[:30],  # Top 30
+            "opportunities": opportunities[:30],
         }
 
         path = REPORTS_DIR / "market_scan.json"
