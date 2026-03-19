@@ -48,7 +48,7 @@ class EdgeFinder(BaseStrategy):
         market_id = market_data.get("id", "")
         question = market_data.get("question", "")
         tokens = market_data.get("tokens", [])
-        liquidity = market_data.get("liquidity", 0)
+        liquidity = float(market_data.get("liquidity", 0) or 0)
         keywords = market_data.get("keywords", [])
         category = market_data.get("category", "")
 

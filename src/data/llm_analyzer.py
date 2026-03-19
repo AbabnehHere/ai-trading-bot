@@ -256,10 +256,7 @@ Where category is one of:
 
         # Summarize lessons
         lessons_text = (
-            "\n".join(
-                f"  - {lesson.get('lesson_learned', 'none')}"
-                for lesson in lessons[:10]
-            )
+            "\n".join(f"  - {lesson.get('lesson_learned', 'none')}" for lesson in lessons[:10])
             if lessons
             else "No lessons yet."
         )

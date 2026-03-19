@@ -56,10 +56,14 @@ class MarketDataClient:
         Returns:
             List of market data dicts.
         """
-        params: dict[str, Any] = {"limit": limit}
+        params: dict[str, Any] = {
+            "limit": limit,
+            "order": "volume24hr",
+            "ascending": "false",
+        }
         if active_only:
-            params["active"] = True
-            params["closed"] = False
+            params["active"] = "true"
+            params["closed"] = "false"
 
         response = self._http_client.get(f"{GAMMA_API_BASE}/markets", params=params)
         response.raise_for_status()

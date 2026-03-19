@@ -69,6 +69,8 @@ class MarketAnalyzer:
         signals: list[TradeSignal] = []
 
         for market in markets:
+            # Normalize market data from Gamma API to strategy format
+            market = self._normalize_market(market)
             for strategy in self._strategies:
                 try:
                     signal = strategy.evaluate(market)
@@ -126,6 +128,53 @@ class MarketAnalyzer:
         except Exception as e:
             logger.warning("Liquidity evaluation failed", token_id=token_id, error=str(e))
             return {"is_liquid": False, "spread": 1.0}
+
+    def _normalize_market(self, market: dict[str, Any]) -> dict[str, Any]:
+        """Normalize Gamma API market data to the format strategies expect.
+
+        Gamma API returns outcomePrices as JSON strings and clobTokenIds
+        separately. This converts to a unified 'tokens' list.
+        """
+        import json as _json
+
+        # Parse tokens from Gamma API format
+        if "tokens" not in market:
+            outcomes_raw = market.get("outcomes", "[]")
+            prices_raw = market.get("outcomePrices", "[]")
+            token_ids_raw = market.get("clobTokenIds", "[]")
+
+            def _parse(raw: Any) -> list[Any]:
+                if isinstance(raw, str):
+                    return _json.loads(raw)  # type: ignore[no-any-return]
+                return raw if isinstance(raw, list) else []
+
+            try:
+                outcomes = _parse(outcomes_raw)
+                prices = _parse(prices_raw)
+                token_ids = _parse(token_ids_raw)
+            except (ValueError, TypeError):
+                outcomes, prices, token_ids = [], [], []
+
+            tokens = []
+            for i, outcome in enumerate(outcomes or []):
+                token = {
+                    "outcome": outcome,
+                    "price": float(prices[i]) if i < len(prices) else 0,
+                    "token_id": token_ids[i] if i < len(token_ids) else "",
+                }
+                tokens.append(token)
+            market["tokens"] = tokens
+
+        # Normalize end date
+        if "end_date_iso" not in market:
+            market["end_date_iso"] = market.get("endDateIso", market.get("endDate", ""))
+
+        # Extract keywords from question
+        if "keywords" not in market:
+            question = market.get("question", "")
+            market["keywords"] = [w for w in question.split() if len(w) > 3][:5]
+
+        return market
 
     def _passes_filters(self, market: dict[str, Any]) -> bool:
         """Check if a market passes basic quality filters."""
