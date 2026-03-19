@@ -20,7 +20,9 @@ def _make_risk_manager(
 ) -> tuple[RiskManager, PositionManager]:
     """Create a risk manager + position manager for testing."""
     market_data = MarketDataClient()
-    positions = PositionManager(market_data, balance, paper=True, use_taker_fees=False)
+    positions = PositionManager(
+        market_data, balance, paper=True, use_taker_fees=False, skip_db_reload=True
+    )
     config = {
         "max_position_pct": max_position_pct,
         "max_drawdown_pct": max_drawdown_pct,

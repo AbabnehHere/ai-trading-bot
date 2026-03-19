@@ -33,7 +33,7 @@ class MarketReporter:
         Selects the most interesting markets based on volume, liquidity,
         and price positioning (not extreme).
         """
-        opportunities = []
+        opportunities: list[dict[str, Any]] = []
 
         for market in markets[:50]:  # Top 50 by volume
             outcomes = market.get("outcomes", "[]")

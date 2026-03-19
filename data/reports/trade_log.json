@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-19T12:58:18.035790+00:00",
+  "timestamp": "2026-03-19T13:31:26.992993+00:00",
   "open_positions": [
     {
       "key": "958443:",
@@ -25,6 +25,22 @@
     }
   ],
   "recent_trades": [
+    {
+      "trade_id": 8,
+      "market_id": "mkt1",
+      "side": "YES",
+      "direction": "BUY",
+      "price": 0.5,
+      "size": 100.0,
+      "timestamp": "2026-03-19T13:28:16.213061+00:00",
+      "fees": 1.0,
+      "order_type": "limit",
+      "status": "filled",
+      "fill_price": 0.5,
+      "strategy_used": "",
+      "reasoning": "",
+      "is_paper": 1
+    },
     {
       "trade_id": 7,
       "market_id": "1467765",

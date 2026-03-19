@@ -9,7 +9,9 @@ from src.data.market_data import MarketDataClient
 def _make_positions(balance: float = 1000.0, use_taker_fees: bool = True) -> PositionManager:
     """Create a position manager for testing."""
     market_data = MarketDataClient()
-    return PositionManager(market_data, balance, paper=True, use_taker_fees=use_taker_fees)
+    return PositionManager(
+        market_data, balance, paper=True, use_taker_fees=use_taker_fees, skip_db_reload=True
+    )
 
 
 class TestPositionManager:

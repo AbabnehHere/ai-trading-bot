@@ -29,6 +29,7 @@ class PositionManager:
         initial_balance: float = 1000.0,
         paper: bool = True,
         use_taker_fees: bool = True,
+        skip_db_reload: bool = False,
     ) -> None:
         """Initialize the position manager.
 
@@ -48,8 +49,9 @@ class PositionManager:
         self._total_fees_paid = 0.0
         self._realized_pnl = 0.0
 
-        # Reload positions from database on startup
-        self._reload_from_db(initial_balance)
+        # Reload positions from database on startup (skip in tests)
+        if not skip_db_reload:
+            self._reload_from_db(initial_balance)
 
     def _reload_from_db(self, initial_balance: float) -> None:
         """Reload positions from the trades database on startup.

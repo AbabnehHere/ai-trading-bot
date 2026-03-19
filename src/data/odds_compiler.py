@@ -10,6 +10,7 @@ from typing import Any
 
 import httpx
 
+from src.data.claude_code_analyzer import ClaudeCodeAnalyzer
 from src.data.llm_analyzer import LLMAnalyzer
 from src.data.news_feed import NewsFeed
 from src.data.sentiment import SentimentAnalyzer
@@ -51,6 +52,7 @@ class OddsCompiler:
         self._news_feed = NewsFeed()
         self._sentiment = SentimentAnalyzer()
         self._llm = LLMAnalyzer()
+        self._claude_code = ClaudeCodeAnalyzer()
         self._http_client = httpx.Client(timeout=10.0)
         self._odds_api_key = os.getenv("ODDS_API_KEY", "")
         self._metaculus_disabled = False  # Circuit breaker for 403s
@@ -85,13 +87,19 @@ class OddsCompiler:
             if bookmaker_source:
                 sources.append(bookmaker_source)
 
-        # Source 2: Claude LLM analysis (highest quality signal)
-        llm_source = self._get_llm_probability(market_question, keywords, category)
-        if llm_source:
-            sources.append(llm_source)
+        # Source 2: Claude Code CLI (free — uses local Claude Code installation)
+        claude_source = self._get_claude_code_probability(market_question, keywords, category)
+        if claude_source:
+            sources.append(claude_source)
 
-        # Source 3: News-based probability (keyword fallback if no LLM)
-        if not llm_source:
+        # Source 3: Claude API fallback (paid — only if Claude Code unavailable)
+        if not claude_source:
+            llm_source = self._get_llm_probability(market_question, keywords, category)
+            if llm_source:
+                sources.append(llm_source)
+
+        # Source 4: News-based probability (keyword fallback if no LLM at all)
+        if not claude_source and not llm_source:
             news_source = self._get_news_probability(keywords, market_question)
             if news_source:
                 sources.append(news_source)
@@ -238,6 +246,43 @@ class OddsCompiler:
             if total > 0:
                 probs = [p / total for p in probs]
         return probs
+
+    def _get_claude_code_probability(
+        self, question: str, keywords: list[str], category: str
+    ) -> ProbabilitySource | None:
+        """Use Claude Code CLI (free) for probability estimation.
+
+        Calls `claude -p` locally — no API key needed, uses existing
+        Claude Code subscription.
+        """
+        if not self._claude_code.is_available:
+            return None
+
+        try:
+            # Fetch news headlines to give Claude context
+            news = self._news_feed.get_market_relevant_news(keywords, limit=5)
+            headlines = [a.get("title", "") for a in (news or [])]
+
+            result = self._claude_code.estimate_probability(
+                market_question=question,
+                market_price=0.5,  # Don't reveal market price
+                news_headlines=headlines,
+                category=category,
+            )
+
+            prob = result.get("probability")
+            if prob is not None:
+                return ProbabilitySource(
+                    source_name="claude_code_cli",
+                    probability=float(prob),
+                    confidence=float(result.get("confidence", 0.5)),
+                    details=f"Claude Code: {result.get('reasoning', '')[:80]}",
+                )
+
+        except Exception as e:
+            logger.warning("Claude Code probability failed", error=str(e))
+
+        return None
 
     def _get_llm_probability(
         self, question: str, keywords: list[str], category: str
