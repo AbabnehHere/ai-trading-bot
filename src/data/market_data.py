@@ -49,25 +49,45 @@ class MarketDataClient:
     def get_markets(self, active_only: bool = True, limit: int = 100) -> list[dict[str, Any]]:
         """Fetch markets from Polymarket via the Gamma API.
 
+        Fetches by volume, liquidity, AND newest to find both popular
+        and potentially mispriced niche markets.
+
         Args:
             active_only: If True, only return active (open) markets.
             limit: Maximum number of markets to return.
 
         Returns:
-            List of market data dicts.
+            Deduplicated list of market data dicts.
         """
-        params: dict[str, Any] = {
-            "limit": limit,
-            "order": "volume24hr",
-            "ascending": "false",
-        }
+        base_params: dict[str, Any] = {}
         if active_only:
-            params["active"] = "true"
-            params["closed"] = "false"
+            base_params["active"] = "true"
+            base_params["closed"] = "false"
 
-        response = self._http_client.get(f"{GAMMA_API_BASE}/markets", params=params)
-        response.raise_for_status()
-        return response.json()  # type: ignore[no-any-return]
+        seen_ids: set[str] = set()
+        all_markets: list[dict[str, Any]] = []
+
+        # Fetch by volume (top popular markets)
+        for order in ["volume24hr", "liquidityNum", "startDate"]:
+            params = {**base_params, "limit": limit, "order": order, "ascending": "false"}
+            try:
+                response = self._http_client.get(f"{GAMMA_API_BASE}/markets", params=params)
+                response.raise_for_status()
+                markets = response.json()
+                for m in markets:
+                    mid = str(m.get("id", ""))
+                    if mid and mid not in seen_ids:
+                        seen_ids.add(mid)
+                        all_markets.append(m)
+            except Exception as e:
+                logger.warning("Market fetch failed", order=order, error=str(e))
+
+        logger.info(
+            "Markets fetched",
+            total=len(all_markets),
+            sources="volume+liquidity+newest",
+        )
+        return all_markets
 
     def get_market(self, market_id: str) -> dict[str, Any]:
         """Fetch a single market by condition ID.

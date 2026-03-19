@@ -1,21 +1,72 @@
 """Market reporter — writes scan results to files for Claude Code review.
 
-Instead of using the Claude API for analysis, this module writes
-structured reports that Claude Code can read and analyze on a schedule.
+Fetches topic-specific news via Google News RSS for each non-sports market.
+Cross-references prices from multiple sources.
 """
 
 import json
-from datetime import UTC, datetime
+import re
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+import feedparser  # type: ignore[import-untyped]
+import httpx
+
 from src.data.market_data import MarketDataClient
-from src.data.news_feed import NewsFeed
+from src.data.price_checker import PriceChecker
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
 REPORTS_DIR = Path("data/reports")
+
+# Sports keywords — skip these markets entirely
+SPORTS_KEYWORDS = frozenset(
+    [
+        " vs.",
+        " vs ",
+        "bulls",
+        "tigers",
+        "cardinals",
+        "zips",
+        "raiders",
+        "billikens",
+        "pride",
+        "cavaliers",
+        "lakers",
+        "clippers",
+        "bucks",
+        "jazz",
+        "heat",
+        "pelicans",
+        "knights",
+        "hofstra",
+        "saint louis",
+        "counter-strike",
+        "handicap",
+        "parivision",
+        "utah",
+        "trojans",
+        "crimson",
+        "bulldogs",
+        "hurricanes",
+        "red raiders",
+        "warriors",
+        "nuggets",
+        "magic",
+        "spurs",
+        "o/u ",
+        "game handicap",
+        "map handicap",
+        "tweets",
+        "tweet",
+        "musk post",
+    ]
+)
+
+# Slug prefixes for sports
+SPORTS_SLUGS = frozenset(["cbb-", "nba-", "nhl-", "lol-", "cs2-"])
 
 
 class MarketReporter:
@@ -24,18 +75,96 @@ class MarketReporter:
     def __init__(self, market_data: MarketDataClient) -> None:
         """Initialize the market reporter."""
         self._market_data = market_data
-        self._news_feed = NewsFeed()
+        self._price_checker = PriceChecker()
+        self._http_client = httpx.Client(timeout=10.0)
         REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    def write_market_scan(self, markets: list[dict[str, Any]]) -> None:
-        """Write top market opportunities for Claude Code to review.
+    def _is_sports(self, question: str, slug: str) -> bool:
+        """Check if a market is sports/esports/noise."""
+        q_lower = question.lower()
+        return any(kw in q_lower for kw in SPORTS_KEYWORDS) or any(
+            slug.startswith(p) for p in SPORTS_SLUGS
+        )
 
-        Selects the most interesting markets based on volume, liquidity,
-        and price positioning (not extreme).
+    def _fetch_google_news(self, query: str, max_items: int = 5) -> list[dict[str, str]]:
+        """Fetch fresh news via Google News RSS topic search.
+
+        Returns only headlines from the last 12 hours.
         """
-        opportunities: list[dict[str, Any]] = []
+        try:
+            url = f"https://news.google.com/rss/search?q={query}&hl=en"
+            feed = feedparser.parse(url)
+            cutoff = datetime.now(UTC) - timedelta(hours=12)
+            results = []
 
-        for market in markets[:50]:  # Top 50 by volume
+            for entry in feed.entries[:15]:
+                # Parse publication date
+                pub = entry.get("published_parsed")
+                if pub:
+                    pub_dt = datetime(*pub[:6]).replace(tzinfo=UTC)
+                    if pub_dt < cutoff:
+                        continue  # Skip stale news
+                else:
+                    continue  # Skip if no date
+
+                title = entry.get("title", "")
+                # Skip Polymarket listings and prediction market noise
+                if any(
+                    s in title.lower()
+                    for s in ["trading odds", "polymarket", "predictions", "kalshi"]
+                ):
+                    continue
+                # Strip source suffix (e.g., " - CNN")
+                title = re.sub(r"\s*-\s*[A-Z][A-Za-z\s.]+$", "", title)
+                results.append(
+                    {
+                        "title": title[:100],
+                        "published": pub_dt.strftime("%H:%M UTC"),
+                    }
+                )
+
+                if len(results) >= max_items:
+                    break
+
+            return results
+
+        except Exception as e:
+            logger.debug("Google News fetch failed", query=query, error=str(e))
+            return []
+
+    def _extract_search_query(self, question: str) -> str:
+        """Extract a good Google News search query from a market question."""
+        # Remove common filler words
+        q = question.lower()
+        for word in [
+            "will",
+            "the",
+            "by",
+            "before",
+            "after",
+            "in",
+            "a",
+            "an",
+            "be",
+            "there",
+            "from",
+            "to",
+            "of",
+            "?",
+            "2026",
+            "2027",
+        ]:
+            q = q.replace(f" {word} ", " ")
+        # Take the most meaningful words
+        words = [w for w in q.split() if len(w) > 2][:5]
+        return "+".join(words)
+
+    def write_market_scan(self, markets: list[dict[str, Any]]) -> None:
+        """Write top market opportunities with fresh topic-specific news."""
+        opportunities: list[dict[str, Any]] = []
+        non_sports_count = 0
+
+        for market in markets[:80]:
             outcomes = market.get("outcomes", "[]")
             prices = market.get("outcomePrices", "[]")
 
@@ -52,62 +181,57 @@ class MarketReporter:
             yes_price = float(prices[0]) if prices else 0
             no_price = float(prices[1]) if len(prices) > 1 else 0
 
-            # Skip extreme prices — no edge to find
             if yes_price < 0.05 or yes_price > 0.95:
                 continue
 
             question = market.get("question", "")
-            # Fetch news for non-sports markets
-            news_headlines: list[str] = []
-            is_sports = any(
-                kw in question.lower()
-                for kw in [
-                    " vs.",
-                    " vs ",
-                    "bulls",
-                    "tigers",
-                    "cardinals",
-                    "zips",
-                    "raiders",
-                    "billikens",
-                    "pride",
-                    "cavaliers",
-                    "lakers",
-                    "clippers",
-                    "bucks",
-                    "jazz",
-                    "heat",
-                    "pelicans",
-                    "knights",
-                ]
-            )
-            if not is_sports and len(opportunities) < 10:
-                # Only fetch news for top 10 non-sports markets (avoid slow RSS)
-                keywords = [w for w in question.split() if len(w) > 3][:3]
-                try:
-                    news = self._news_feed.get_market_relevant_news(keywords, limit=3)
-                    news_headlines = [a.get("title", "")[:80] for a in news]
-                except Exception as e:
-                    logger.debug("News fetch failed for report", error=str(e))
+            slug = market.get("slug", "")
 
-            opportunities.append(
-                {
-                    "id": market.get("id", ""),
-                    "question": question,
-                    "category": market.get("category", ""),
-                    "yes_price": yes_price,
-                    "no_price": no_price,
-                    "volume_24h": float(market.get("volume24hr", 0) or 0),
-                    "liquidity": float(market.get("liquidityNum", 0) or 0),
-                    "end_date": market.get("endDateIso", ""),
-                    "slug": market.get("slug", ""),
-                    "recent_news": news_headlines,
-                }
-            )
+            if self._is_sports(question, slug):
+                continue
+
+            non_sports_count += 1
+            news_items: list[dict[str, str]] = []
+
+            # Fetch Google News for top 15 non-sports markets
+            if non_sports_count <= 15:
+                query = self._extract_search_query(question)
+                news_items = self._fetch_google_news(query, max_items=4)
+
+            # Check for asset price data
+            asset_price: dict[str, Any] | None = None
+            detected_asset = self._price_checker.detect_asset(question)
+            if detected_asset and non_sports_count <= 15:
+                asset_price = self._price_checker.get_price(detected_asset)
+
+            entry: dict[str, Any] = {
+                "id": market.get("id", ""),
+                "question": question,
+                "category": market.get("category", ""),
+                "yes_price": yes_price,
+                "no_price": no_price,
+                "volume_24h": float(market.get("volume24hr", 0) or 0),
+                "liquidity": float(market.get("liquidityNum", 0) or 0),
+                "end_date": market.get("endDateIso", ""),
+                "slug": slug,
+                "recent_news": [n["title"] for n in news_items],
+                "news_times": [n["published"] for n in news_items],
+            }
+            if asset_price:
+                entry["current_asset_price"] = asset_price["price"]
+                entry["asset_unit"] = asset_price["unit"]
+                entry["price_sources"] = [
+                    f"{s['source']}: ${s['price']:.2f}" for s in asset_price["sources"]
+                ]
+                if asset_price.get("warning"):
+                    entry["price_warning"] = asset_price["warning"]
+
+            opportunities.append(entry)
 
         report = {
             "timestamp": datetime.now(UTC).isoformat(),
             "total_markets_scanned": len(markets),
+            "non_sports_found": non_sports_count,
             "opportunities": opportunities[:30],
         }
 
@@ -115,7 +239,11 @@ class MarketReporter:
         with open(path, "w") as f:
             json.dump(report, f, indent=2)
 
-        logger.info("Market scan report written", opportunities=len(opportunities))
+        logger.info(
+            "Market scan report written",
+            non_sports=non_sports_count,
+            total_opps=len(opportunities),
+        )
 
     def write_trade_log(
         self, trades: list[dict[str, Any]], positions: list[dict[str, Any]]
@@ -126,40 +254,12 @@ class MarketReporter:
             "open_positions": positions,
             "recent_trades": trades[:20],
         }
-
         path = REPORTS_DIR / "trade_log.json"
         with open(path, "w") as f:
             json.dump(report, f, indent=2)
 
-    def write_daily_summary(
-        self,
-        metrics: dict[str, Any],
-        trades_today: list[dict[str, Any]],
-        positions: list[dict[str, Any]],
-    ) -> None:
-        """Write end-of-day summary for nightly Claude Code review."""
-        report = {
-            "timestamp": datetime.now(UTC).isoformat(),
-            "date": datetime.now(UTC).strftime("%Y-%m-%d"),
-            "performance": metrics,
-            "trades_today": trades_today,
-            "open_positions": positions,
-            "needs_review": True,
-        }
-
-        path = REPORTS_DIR / "daily_summary.json"
-        with open(path, "w") as f:
-            json.dump(report, f, indent=2)
-
-        logger.info("Daily summary report written")
-
     def read_trade_signals(self) -> list[dict[str, Any]]:
-        """Read trade signals written by Claude Code.
-
-        Claude Code writes signals to data/reports/signals.json
-        after analyzing the market scan. The bot picks them up
-        and executes them.
-        """
+        """Read trade signals written by Claude Code."""
         path = REPORTS_DIR / "signals.json"
         if not path.exists():
             return []
@@ -170,11 +270,9 @@ class MarketReporter:
 
             signals = data.get("signals", [])
             if signals:
-                # Archive processed signals
                 archive = REPORTS_DIR / "signals_processed.json"
                 with open(archive, "w") as f:
                     json.dump(data, f, indent=2)
-                # Clear the signals file
                 path.write_text('{"signals": []}')
                 logger.info("Trade signals picked up", count=len(signals))
 

@@ -1,82 +1,20 @@
 {
-  "timestamp": "2026-03-19T13:46:49.644148+00:00",
-  "total_markets_scanned": 199,
+  "timestamp": "2026-03-19T14:03:02.736732+00:00",
+  "total_markets_scanned": 336,
+  "non_sports_found": 21,
   "opportunities": [
-    {
-      "id": "1602139",
-      "question": "South Florida Bulls vs. Louisville Cardinals",
-      "category": "",
-      "yes_price": 0.365,
-      "no_price": 0.635,
-      "volume_24h": 3627937.427000996,
-      "liquidity": 4958234.6195,
-      "end_date": "2026-03-19",
-      "slug": "cbb-sfl-lou-2026-03-19",
-      "recent_news": []
-    },
-    {
-      "id": "1602165",
-      "question": "Akron Zips vs. Texas Tech Red Raiders",
-      "category": "",
-      "yes_price": 0.255,
-      "no_price": 0.745,
-      "volume_24h": 1332838.7337260034,
-      "liquidity": 3553212.4682,
-      "end_date": "2026-03-20",
-      "slug": "cbb-akron-txtech-2026-03-20",
-      "recent_news": []
-    },
-    {
-      "id": "1602245",
-      "question": "Missouri Tigers vs. Miami Hurricanes",
-      "category": "",
-      "yes_price": 0.455,
-      "no_price": 0.545,
-      "volume_24h": 1042420.2440399992,
-      "liquidity": 4346101.8196,
-      "end_date": "2026-03-20",
-      "slug": "cbb-missr-mia-2026-03-20",
-      "recent_news": []
-    },
-    {
-      "id": "1575630",
-      "question": "Lakers vs. Heat",
-      "category": "",
-      "yes_price": 0.435,
-      "no_price": 0.565,
-      "volume_24h": 801747.806073,
-      "liquidity": 122758.0476,
-      "end_date": "2026-03-20",
-      "slug": "nba-lal-mia-2026-03-19",
-      "recent_news": []
-    },
-    {
-      "id": "1602175",
-      "question": "Hofstra Pride vs. Alabama Crimson Tide",
-      "category": "",
-      "yes_price": 0.145,
-      "no_price": 0.855,
-      "volume_24h": 793239.4509819997,
-      "liquidity": 4785030.8,
-      "end_date": "2026-03-20",
-      "slug": "cbb-hofst-ala-2026-03-20",
-      "recent_news": []
-    },
     {
       "id": "1466015",
       "question": "US x Iran ceasefire by March 31?",
       "category": "",
       "yes_price": 0.065,
       "no_price": 0.935,
-      "volume_24h": 772468.3295270002,
-      "liquidity": 514376.6147,
+      "volume_24h": 806323.8426900001,
+      "liquidity": 534108.2095,
       "end_date": "",
       "slug": "us-x-iran-ceasefire-by-march-31",
-      "recent_news": [
-        "Economic fallout from U.S.-led war is hitting the rest of the world harder - The",
-        "Three Palestinian women killed during Iranian missile attack",
-        "Former counter-terrorism head investigated by FBI over alleged leaks"
-      ]
+      "recent_news": [],
+      "news_times": []
     },
     {
       "id": "703257",
@@ -84,15 +22,12 @@
       "category": "",
       "yes_price": 0.185,
       "no_price": 0.815,
-      "volume_24h": 711278.6642140012,
-      "liquidity": 1805579.7118,
+      "volume_24h": 717735.727995001,
+      "liquidity": 1392431.8323,
       "end_date": "2026-12-31",
       "slug": "will-the-us-confirm-that-aliens-exist-before-2027",
-      "recent_news": [
-        "Trump Says U.S. and Qatar Not Involved in Strike on Iran\u2019s South Pars Gas Field ",
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "How Europe sleepwalked into yet another energy crisis"
-      ]
+      "recent_news": [],
+      "news_times": []
     },
     {
       "id": "1162940",
@@ -100,55 +35,38 @@
       "category": "",
       "yes_price": 0.255,
       "no_price": 0.745,
-      "volume_24h": 684299.862399002,
-      "liquidity": 319004.3245,
+      "volume_24h": 665995.8884160022,
+      "liquidity": 291676.831,
       "end_date": "2026-03-31",
       "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519",
       "recent_news": [
-        "Economic fallout from U.S.-led war is hitting the rest of the world harder - The",
-        "Three Palestinian women killed during Iranian missile attack",
-        "Former counter-terrorism head investigated by FBI over alleged leaks"
+        "U.S. forces seize another oil tanker by March 31? Trading Odds & Predictions"
+      ],
+      "news_times": [
+        "07:45 UTC"
       ]
     },
     {
       "id": "1467766",
       "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?",
       "category": "",
-      "yes_price": 0.81,
-      "no_price": 0.19,
-      "volume_24h": 545837.4155099997,
-      "liquidity": 124714.59592,
+      "yes_price": 0.806,
+      "no_price": 0.194,
+      "volume_24h": 535008.4096779998,
+      "liquidity": 121464.29298,
       "end_date": "2026-03-31",
       "slug": "will-crude-oil-cl-hit-high-100-by-end-of-march-658-396-769-971",
       "recent_news": [
-        "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "Israel is rapidly killing Iran\u2019s top leaders. Experts warn the strategy could ba",
-        "As Cuba struggles with power cuts, how is the island holding up?"
+        "Will Crude Oil (CL) hit__ Week of March 16? Trading Odds & Predictions"
+      ],
+      "news_times": [
+        "10:48 UTC"
+      ],
+      "current_asset_price": 200.0,
+      "asset_unit": "per barrel",
+      "price_sources": [
+        "news_headlines: $200.00"
       ]
-    },
-    {
-      "id": "1645686",
-      "question": "Cavaliers vs. Bulls: O/U 238.5",
-      "category": "",
-      "yes_price": 0.56,
-      "no_price": 0.44,
-      "volume_24h": 543862.1200950001,
-      "liquidity": 16665.5903,
-      "end_date": "2026-03-20",
-      "slug": "nba-cle-chi-2026-03-19-total-238pt5",
-      "recent_news": []
-    },
-    {
-      "id": "1631614",
-      "question": "Game Handicap: GEN (-2.5) vs LYON (+2.5)",
-      "category": "",
-      "yes_price": 0.905,
-      "no_price": 0.095,
-      "volume_24h": 515354.2705469994,
-      "liquidity": 62050.3455,
-      "end_date": "2026-03-19",
-      "slug": "lol-gen-ly-2026-03-19-game-handicap-away-2pt5",
-      "recent_news": []
     },
     {
       "id": "1507751",
@@ -156,23 +74,12 @@
       "category": "",
       "yes_price": 0.135,
       "no_price": 0.865,
-      "volume_24h": 501945.8986649993,
-      "liquidity": 1020732.4669,
+      "volume_24h": 500700.7498549992,
+      "liquidity": 1009070.9089,
       "end_date": "2026-04-30",
       "slug": "will-the-iranian-regime-fall-by-april-30",
-      "recent_news": []
-    },
-    {
-      "id": "669662",
-      "question": "Will there be no change in Fed interest rates after the April 2026 meeting?",
-      "category": "",
-      "yes_price": 0.945,
-      "no_price": 0.055,
-      "volume_24h": 492818.03179199994,
-      "liquidity": 668743.785,
-      "end_date": "2026-04-29",
-      "slug": "will-there-be-no-change-in-fed-interest-rates-after-the-april-2026-meeting",
-      "recent_news": []
+      "recent_news": [],
+      "news_times": []
     },
     {
       "id": "566188",
@@ -180,23 +87,20 @@
       "category": "",
       "yes_price": 0.085,
       "no_price": 0.915,
-      "volume_24h": 472113.5089199999,
-      "liquidity": 480258.8011,
+      "volume_24h": 472234.8713099999,
+      "liquidity": 481816.9714,
       "end_date": "2026-05-27",
       "slug": "will-manchester-city-win-the-202526-english-premier-league",
-      "recent_news": []
-    },
-    {
-      "id": "1402855",
-      "question": "Utah vs. Golden Knights",
-      "category": "",
-      "yes_price": 0.445,
-      "no_price": 0.555,
-      "volume_24h": 463532.75436599995,
-      "liquidity": 202342.2013,
-      "end_date": "2026-03-20",
-      "slug": "nhl-utah-las-2026-03-19",
-      "recent_news": []
+      "recent_news": [
+        "Meet the 2025/26 Champions League round of 16 contenders",
+        "Champions League 2025-26 Power Rankings: Arsenal regain top spot while Barcelona and Liverpool offer",
+        "Where to watch 2026 Carabao Cup final: Full coverage details for Arsenal v Man City - talkSPORT"
+      ],
+      "news_times": [
+        "10:53 UTC",
+        "09:00 UTC",
+        "12:59 UTC"
+      ]
     },
     {
       "id": "958443",
@@ -204,131 +108,209 @@
       "category": "",
       "yes_price": 0.275,
       "no_price": 0.725,
-      "volume_24h": 460526.31341099873,
-      "liquidity": 747018.6634,
+      "volume_24h": 444932.7456369989,
+      "liquidity": 808663.0143,
       "end_date": "2026-06-30",
       "slug": "will-the-iranian-regime-fall-by-june-30",
-      "recent_news": []
-    },
-    {
-      "id": "1575642",
-      "question": "Clippers vs. Pelicans",
-      "category": "",
-      "yes_price": 0.475,
-      "no_price": 0.525,
-      "volume_24h": 450184.1988420004,
-      "liquidity": 101750.5522,
-      "end_date": "2026-03-20",
-      "slug": "nba-lac-nop-2026-03-19",
-      "recent_news": []
-    },
-    {
-      "id": "1542980",
-      "question": "Will Elon Musk post 360-379 tweets from March 13 to March 20, 2026?",
-      "category": "",
-      "yes_price": 0.065,
-      "no_price": 0.935,
-      "volume_24h": 427005.33204000036,
-      "liquidity": 31183.94345,
-      "end_date": "2026-03-20",
-      "slug": "elon-musk-of-tweets-march-13-march-20-360-379",
-      "recent_news": []
+      "recent_news": [],
+      "news_times": []
     },
     {
       "id": "1365860",
       "question": "Will Renan Santos finish in second place in the first round of the 2026 Brazilian presidential election?",
       "category": "",
-      "yes_price": 0.084,
-      "no_price": 0.916,
-      "volume_24h": 419077.650686,
-      "liquidity": 11190.4541,
+      "yes_price": 0.0765,
+      "no_price": 0.9235,
+      "volume_24h": 431945.650686,
+      "liquidity": 13198.28115,
       "end_date": "2026-10-04",
       "slug": "will-renan-santos-finish-in-second-place-in-the-first-round-of-the-2026-brazilian-presidential-election",
-      "recent_news": []
-    },
-    {
-      "id": "1575647",
-      "question": "Bucks vs. Jazz",
-      "category": "",
-      "yes_price": 0.675,
-      "no_price": 0.325,
-      "volume_24h": 409525.9384740004,
-      "liquidity": 109623.3624,
-      "end_date": "2026-03-20",
-      "slug": "nba-mil-uta-2026-03-19",
-      "recent_news": []
+      "recent_news": [],
+      "news_times": []
     },
     {
       "id": "1477563",
       "question": "Will Crude Oil (CL) hit (HIGH) $150 by end of March?",
       "category": "",
-      "yes_price": 0.0565,
-      "no_price": 0.9435,
-      "volume_24h": 395561.8305330001,
-      "liquidity": 199419.40304,
+      "yes_price": 0.0545,
+      "no_price": 0.9455,
+      "volume_24h": 395899.32644500013,
+      "liquidity": 201831.00247,
       "end_date": "2026-03-31",
       "slug": "will-crude-oil-cl-hit-high-150-by-end-of-march-138-937-747",
-      "recent_news": []
-    },
-    {
-      "id": "1575627",
-      "question": "Pistons vs. Wizards",
-      "category": "",
-      "yes_price": 0.905,
-      "no_price": 0.095,
-      "volume_24h": 391606.2058949999,
-      "liquidity": 214418.1776,
-      "end_date": "2026-03-19",
-      "slug": "nba-det-was-2026-03-19",
-      "recent_news": []
-    },
-    {
-      "id": "1542960",
-      "question": "Will Elon Musk post 280-299 tweets from March 13 to March 20, 2026?",
-      "category": "",
-      "yes_price": 0.085,
-      "no_price": 0.915,
-      "volume_24h": 389842.65914499975,
-      "liquidity": 30182.3314,
-      "end_date": "2026-03-20",
-      "slug": "elon-musk-of-tweets-march-13-march-20-280-299",
-      "recent_news": []
-    },
-    {
-      "id": "1602028",
-      "question": "Saint Louis Billikens vs. Georgia Bulldogs",
-      "category": "",
-      "yes_price": 0.435,
-      "no_price": 0.565,
-      "volume_24h": 385157.268751,
-      "liquidity": 3979460.439,
-      "end_date": "2026-03-19",
-      "slug": "cbb-stlou-ga-2026-03-19",
-      "recent_news": []
+      "recent_news": [
+        "Will Crude Oil (CL) hit__ Week of March 16? Trading Odds & Predictions"
+      ],
+      "news_times": [
+        "10:48 UTC"
+      ],
+      "current_asset_price": 200.0,
+      "asset_unit": "per barrel",
+      "price_sources": [
+        "news_headlines: $200.00"
+      ]
     },
     {
       "id": "1130015",
       "question": "Will the Liberal Democratic Party of Russia (LDPR) gain the most seats in the next Russian parliamentary election?",
       "category": "",
-      "yes_price": 0.0605,
-      "no_price": 0.9395,
-      "volume_24h": 376938.8178960001,
-      "liquidity": 23960.91558,
+      "yes_price": 0.061,
+      "no_price": 0.939,
+      "volume_24h": 378485.8178960001,
+      "liquidity": 29088.63171,
       "end_date": "2026-09-30",
       "slug": "will-the-liberal-democratic-party-of-russia-ldpr-gain-the-most-seats-in-the-next-russian-parliamentary-election",
-      "recent_news": []
+      "recent_news": [],
+      "news_times": []
     },
     {
-      "id": "1602122",
-      "question": "TCU Horned Frogs vs. Ohio State Buckeyes",
+      "id": "1473072",
+      "question": "Will Bitcoin dip to $65,000 in March?",
       "category": "",
-      "yes_price": 0.425,
-      "no_price": 0.575,
-      "volume_24h": 376575.6817400001,
-      "liquidity": 5379000.7729,
+      "yes_price": 0.4815,
+      "no_price": 0.5185,
+      "volume_24h": 375195.6003110002,
+      "liquidity": 112860.03949,
+      "end_date": "2026-04-01",
+      "slug": "will-bitcoin-dip-to-65k-in-march-2026",
+      "recent_news": [],
+      "news_times": [],
+      "current_asset_price": 69955.0,
+      "asset_unit": "USD",
+      "price_sources": [
+        "coingecko: $69955.00",
+        "news_headlines: $75000.00"
+      ]
+    },
+    {
+      "id": "907690",
+      "question": "Will the Republican Party hold exactly 28 or 29 governorships after the 2026 midterm elections?",
+      "category": "",
+      "yes_price": 0.061,
+      "no_price": 0.939,
+      "volume_24h": 373873.92045,
+      "liquidity": 12691.3535,
+      "end_date": "2026-11-03",
+      "slug": "will-the-republican-party-hold-exactly-28-or-29-governorships-after-the-2026-midterm-elections",
+      "recent_news": [],
+      "news_times": []
+    },
+    {
+      "id": "677397",
+      "question": "Will Israel launch a major ground offensive in Lebanon by March 31?",
+      "category": "",
+      "yes_price": 0.755,
+      "no_price": 0.245,
+      "volume_24h": 368459.9247430001,
+      "liquidity": 116497.9861,
+      "end_date": "2026-03-31",
+      "slug": "will-israel-launch-a-major-ground-offensive-in-lebanon-by-march-31",
+      "recent_news": [],
+      "news_times": []
+    },
+    {
+      "id": "1484987",
+      "question": "Netanyahu out by June 30?",
+      "category": "",
+      "yes_price": 0.165,
+      "no_price": 0.835,
+      "volume_24h": 362010.3509229999,
+      "liquidity": 142044.5336,
+      "end_date": "2026-06-30",
+      "slug": "netanyahu-out-by-june-30-383-244-575",
+      "recent_news": [],
+      "news_times": []
+    },
+    {
+      "id": "1395710",
+      "question": "Will Houston Astros win the 2026 American League Championship Series?",
+      "category": "",
+      "yes_price": 0.067,
+      "no_price": 0.933,
+      "volume_24h": 360942.177642,
+      "liquidity": 16452.16774,
+      "end_date": "2026-11-01",
+      "slug": "will-houston-astros-win-the-2026-american-league-championship-series",
+      "recent_news": [],
+      "news_times": []
+    },
+    {
+      "id": "566138",
+      "question": "Will Barcelona win the 2025\u201326 Champions League?",
+      "category": "",
+      "yes_price": 0.155,
+      "no_price": 0.845,
+      "volume_24h": 351294.3325089991,
+      "liquidity": 218768.4263,
+      "end_date": "2026-05-31",
+      "slug": "will-barcelona-win-the-202526-champions-league",
+      "recent_news": [],
+      "news_times": []
+    },
+    {
+      "id": "1473066",
+      "question": "Will Bitcoin reach $80,000 in March?",
+      "category": "",
+      "yes_price": 0.155,
+      "no_price": 0.845,
+      "volume_24h": 349539.01843899983,
+      "liquidity": 140363.1225,
+      "end_date": "2026-04-01",
+      "slug": "will-bitcoin-reach-80k-in-march-2026",
+      "recent_news": [],
+      "news_times": []
+    },
+    {
+      "id": "1467763",
+      "question": "Will Crude Oil (CL) hit (HIGH) $120 by end of March?",
+      "category": "",
+      "yes_price": 0.23,
+      "no_price": 0.77,
+      "volume_24h": 344085.67537400016,
+      "liquidity": 67690.3301,
+      "end_date": "2026-03-31",
+      "slug": "will-crude-oil-cl-hit-high-120-by-end-of-march-766-813-597",
+      "recent_news": [],
+      "news_times": []
+    },
+    {
+      "id": "566137",
+      "question": "Will Liverpool win the 2025\u201326 Champions League?",
+      "category": "",
+      "yes_price": 0.075,
+      "no_price": 0.925,
+      "volume_24h": 322536.33491599996,
+      "liquidity": 686822.7614,
+      "end_date": "2026-05-31",
+      "slug": "will-liverpool-win-the-202526-champions-league",
+      "recent_news": [],
+      "news_times": []
+    },
+    {
+      "id": "1517328",
+      "question": "Will AS Roma win on 2026-03-19?",
+      "category": "",
+      "yes_price": 0.555,
+      "no_price": 0.445,
+      "volume_24h": 317731.4467970001,
+      "liquidity": 263183.0524,
       "end_date": "2026-03-19",
-      "slug": "cbb-tcu-ohiost-2026-03-19",
-      "recent_news": []
+      "slug": "uel-rom1-bol1-2026-03-19-rom1",
+      "recent_news": [],
+      "news_times": []
+    },
+    {
+      "id": "1568794",
+      "question": "Will the price of Bitcoin be above $70,000 on March 19?",
+      "category": "",
+      "yes_price": 0.44,
+      "no_price": 0.56,
+      "volume_24h": 309217.87993299984,
+      "liquidity": 30870.9507,
+      "end_date": "2026-03-19",
+      "slug": "bitcoin-above-70k-on-march-19",
+      "recent_news": [],
+      "news_times": []
     }
   ]
 }

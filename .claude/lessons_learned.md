@@ -10,6 +10,8 @@ Accumulated from trading reviews. Updated by Claude Code during every review cyc
 - Thin edges (<5% after fees) aren't worth the capital lockup
 - Always fetch live prices before assessing commodity/crypto markets — without current price, you're blind
 - Markets price in wars within hours — late reactions have no edge
+- NEVER trust a single price source — Yahoo Finance API returned $96.91 while actual crude was $110-115. Always cross-reference with news headlines
+- Use Google News search for real-time price confirmation, not just financial APIs (APIs can be stale/delayed)
 
 ## Fee Awareness
 - 2% taker fee on entry AND exit eats small edges

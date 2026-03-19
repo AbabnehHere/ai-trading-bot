@@ -3,10 +3,10 @@
     {
       "market_id": "1467765",
       "token_id": "",
-      "side": "BUY",
+      "side": "SELL",
       "size": 20,
-      "price": 0.5905,
-      "reasoning": "Crude Oil $110 by end of March \u2014 buying NO at $0.59. Current crude price: $96.85 (today's high $99.17). Needs +13.6% in 12 days to hit $110. Even with Iran gas facility attacks, $110 requires an extreme supply shock beyond current conflict. Historical: oil rarely moves +$13 in 12 days. Market says 41% chance \u2014 my estimate 20-25%. Edge ~17% after fees."
+      "price": 0.59,
+      "reasoning": "STOP-LOSS: Close Crude Oil $110 NO position immediately. News reports oil at $110-115/barrel \u2014 NOT $96.91 as Yahoo API showed (stale data). Oil already at or above $110 means this market likely resolves YES. Our NO position is a loss. Cut now before it gets worse."
     }
   ]
 }

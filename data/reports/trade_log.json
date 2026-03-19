@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-19T13:46:49.650778+00:00",
+  "timestamp": "2026-03-19T14:03:02.753415+00:00",
   "open_positions": [
     {
       "key": "958443:",
@@ -10,21 +10,26 @@
       "avg_entry_price": 0.725,
       "avg_cost_basis": 0.7394999999999999,
       "total_fees": 0.29,
-      "opened_at": "2026-03-19T13:40:03.725309+00:00"
-    },
-    {
-      "key": "1467765:",
-      "market_id": "1467765",
-      "token_id": "",
-      "side": "YES",
-      "size": 20.0,
-      "avg_entry_price": 0.5905,
-      "avg_cost_basis": 0.60231,
-      "total_fees": 0.23620000000000002,
-      "opened_at": "2026-03-19T13:40:03.725413+00:00"
+      "opened_at": "2026-03-19T14:01:20.343935+00:00"
     }
   ],
   "recent_trades": [
+    {
+      "trade_id": 10,
+      "market_id": "1467765",
+      "side": "YES",
+      "direction": "SELL",
+      "price": 0.59,
+      "size": 20.0,
+      "timestamp": "2026-03-19T13:57:31.426816+00:00",
+      "fees": 0.236,
+      "order_type": "limit",
+      "status": "filled",
+      "fill_price": 0.59,
+      "strategy_used": "claude_code",
+      "reasoning": "STOP-LOSS: Close Crude Oil $110 NO position immediately. News reports oil at $110-115/barrel \u2014 NOT $96.91 as Yahoo API showed (stale data). Oil already at or above $110 means this market likely resolves YES. Our NO position is a loss. Cut now before it gets worse.",
+      "is_paper": 1
+    },
     {
       "trade_id": 7,
       "market_id": "1467765",
