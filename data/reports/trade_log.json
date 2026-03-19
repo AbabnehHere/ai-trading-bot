@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-19T13:31:26.992993+00:00",
+  "timestamp": "2026-03-19T13:44:37.953667+00:00",
   "open_positions": [
     {
       "key": "958443:",
@@ -10,7 +10,7 @@
       "avg_entry_price": 0.725,
       "avg_cost_basis": 0.7394999999999999,
       "total_fees": 0.29,
-      "opened_at": "2026-03-19T12:01:59.432729+00:00"
+      "opened_at": "2026-03-19T13:40:03.725309+00:00"
     },
     {
       "key": "1467765:",
@@ -21,26 +21,10 @@
       "avg_entry_price": 0.5905,
       "avg_cost_basis": 0.60231,
       "total_fees": 0.23620000000000002,
-      "opened_at": "2026-03-19T12:05:17.272264+00:00"
+      "opened_at": "2026-03-19T13:40:03.725413+00:00"
     }
   ],
   "recent_trades": [
-    {
-      "trade_id": 8,
-      "market_id": "mkt1",
-      "side": "YES",
-      "direction": "BUY",
-      "price": 0.5,
-      "size": 100.0,
-      "timestamp": "2026-03-19T13:28:16.213061+00:00",
-      "fees": 1.0,
-      "order_type": "limit",
-      "status": "filled",
-      "fill_price": 0.5,
-      "strategy_used": "",
-      "reasoning": "",
-      "is_paper": 1
-    },
     {
       "trade_id": 7,
       "market_id": "1467765",

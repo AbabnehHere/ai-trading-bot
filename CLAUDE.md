@@ -55,6 +55,27 @@ trade signals there after analyzing markets. The bot validates signals through
 the risk manager before executing. All signals go through risk checks — they
 can be rejected if position limits, daily loss limits, or other rules are violated.
 
+## Rules
+
+### Always Record Lessons Learned
+After EVERY market review and strategy review, record lessons learned:
+- What worked and what didn't
+- New patterns discovered (e.g., "sports markets are always efficient")
+- Mistakes made (e.g., "ghost trades from pkill during commit")
+- Edge cases found (e.g., "crude oil 52-week high was $119, so $110 isn't impossible")
+- Append lessons to `data/logs/claude_review.log` with each review entry
+
+### Never Ask for Permission During Reviews
+Market reviews, strategy reviews, price fetches, news fetches, log writes, and
+database queries should all run autonomously without asking the user. Permissions
+are configured in `.claude/settings.local.json`.
+
+### Claude Code CLI (`claude -p`) Limitations
+The `claude -p` headless mode CANNOT use tools (WebFetch, Bash, Read).
+The bot must fetch all data (prices, news, market data) FIRST using Python,
+then pass it to `claude -p` as context in the prompt. The bot researches,
+Claude thinks.
+
 ## Key Files
 - `config/settings.yaml` — Strategy parameters (edge thresholds, risk limits)
 - `data/reports/market_scan.json` — Latest market opportunities (updated every 60s)
