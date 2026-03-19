@@ -107,24 +107,45 @@ class MarketReporter:
                 else:
                     continue  # Skip if no date
 
-                title = entry.get("title", "")
-                # Skip Polymarket listings and prediction market noise
-                if any(
-                    s in title.lower()
-                    for s in ["trading odds", "polymarket", "predictions", "kalshi"]
-                ):
+                raw_title = entry.get("title", "")
+                # Skip prediction market noise
+                skip_words = [
+                    "trading odds",
+                    "polymarket",
+                    "prediction market",
+                    "kalshi",
+                    "live odds",
+                    "betting odds",
+                    "wagering",
+                ]
+                if any(s in raw_title.lower() for s in skip_words):
                     continue
-                # Strip source suffix (e.g., " - CNN")
-                title = re.sub(r"\s*-\s*[A-Z][A-Za-z\s.]+$", "", title)
-                # Get summary from description field
-                summary = entry.get("summary", entry.get("description", ""))
-                # Strip HTML tags
-                summary = re.sub(r"<[^>]+>", "", summary)[:150]
+
+                # Extract source from title (Google News format: "Title - Source")
+                source = ""
+                source_match = re.search(r"\s-\s([A-Z][A-Za-z\s.]+)$", raw_title)
+                if source_match:
+                    source = source_match.group(1).strip()
+                title = re.sub(r"\s*-\s*[A-Z][A-Za-z\s.]+$", "", raw_title)
+
+                # Extract real summary from description HTML
+                # Google News wraps snippets in <font> tags after <a> tags
+                desc = entry.get("summary", entry.get("description", ""))
+                # Remove all HTML, get the text after the title
+                desc_clean = re.sub(r"<[^>]+>", " ", desc)
+                desc_clean = re.sub(r"&\w+;", " ", desc_clean)
+                desc_clean = re.sub(r"\s+", " ", desc_clean).strip()
+                # Remove the title from the description (it's usually repeated)
+                summary = desc_clean.replace(title.strip(), "").strip()
+                # If summary is empty or too short, use "No summary"
+                if len(summary) < 20:
+                    summary = ""
 
                 results.append(
                     {
                         "title": title[:100],
-                        "summary": summary,
+                        "summary": summary[:200],
+                        "source": source,
                         "published": pub_dt.strftime("%H:%M UTC"),
                     }
                 )
@@ -139,10 +160,13 @@ class MarketReporter:
             return []
 
     def _extract_search_query(self, question: str) -> str:
-        """Extract a good Google News search query from a market question."""
-        # Remove common filler words
+        """Extract a good Google News search query from a market question.
+
+        Adds -polymarket -kalshi to exclude prediction market listings.
+        """
         q = question.lower()
-        for word in [
+        # Remove filler words
+        filler = {
             "will",
             "the",
             "by",
@@ -159,11 +183,18 @@ class MarketReporter:
             "?",
             "2026",
             "2027",
-        ]:
-            q = q.replace(f" {word} ", " ")
-        # Take the most meaningful words
-        words = [w for w in q.split() if len(w) > 2][:5]
-        return "+".join(words)
+            "hit",
+            "high",
+            "low",
+            "exactly",
+            "more",
+            "than",
+        }
+        words = [w.strip("?.,!()") for w in q.split() if len(w) > 2]
+        words = [w for w in words if w not in filler][:4]
+        query = "+".join(words)
+        # Exclude prediction market sites from results
+        return f"{query}+-polymarket+-kalshi+-prediction+market"
 
     def write_market_scan(
         self,
@@ -245,8 +276,15 @@ class MarketReporter:
                 "liquidity": float(market.get("liquidityNum", 0) or 0),
                 "end_date": market.get("endDateIso", ""),
                 "slug": slug,
-                "recent_news": [f"{n['title']} — {n.get('summary', '')}" for n in news_items],
-                "news_times": [n["published"] for n in news_items],
+                "recent_news": [
+                    {
+                        "headline": n["title"],
+                        "summary": n.get("summary", ""),
+                        "source": n.get("source", ""),
+                        "time": n["published"],
+                    }
+                    for n in news_items
+                ],
             }
             if asset_price:
                 entry["current_asset_price"] = asset_price["price"]
