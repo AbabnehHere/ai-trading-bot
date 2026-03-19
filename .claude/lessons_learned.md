@@ -10,8 +10,10 @@ Accumulated from trading reviews. Updated by Claude Code during every review cyc
 - Thin edges (<5% after fees) aren't worth the capital lockup
 - Always fetch live prices before assessing commodity/crypto markets — without current price, you're blind
 - Markets price in wars within hours — late reactions have no edge
-- NEVER trust a single price source — Yahoo Finance API returned $96.91 while actual crude was $110-115. Always cross-reference with news headlines
-- Use Google News search for real-time price confirmation, not just financial APIs (APIs can be stale/delayed)
+- NEVER trust news headline prices as "current price" — a headline saying "$110" could mean forecast, target, historical, or actual. Headlines are ambiguous.
+- Trust structured API prices (Yahoo Finance, CoinGecko) over news headlines for the actual number. APIs return specific data fields, news returns unstructured text.
+- If API price and news price conflict, DO NOT panic-trade. Flag it for manual review. The API is more likely correct — stale by minutes, not by $15.
+- NEVER issue a stop-loss based on a single unverified price source. The crude oil false alarm ($96 API vs "$110" news headline) would have caused a real loss.
 
 ## Fee Awareness
 - 2% taker fee on entry AND exit eats small edges

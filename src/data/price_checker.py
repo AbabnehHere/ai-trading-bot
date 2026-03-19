@@ -100,11 +100,13 @@ class PriceChecker:
         if not prices:
             return None
 
-        # Cross-reference: if news price differs >10% from API, flag it
+        # Use API price as the trusted source.
+        # News prices are unreliable — headlines may say "could reach $110"
+        # or "was $110 last week" without stating the CURRENT price.
         api_prices = [p["price"] for p in prices if p["source"] != "news_headlines"]
         news_prices = [p["price"] for p in prices if p["source"] == "news_headlines"]
 
-        best_price = prices[0]["price"]
+        best_price = api_prices[0] if api_prices else (news_prices[0] if news_prices else 0)
         warning = ""
 
         if api_prices and news_prices:
@@ -113,13 +115,12 @@ class PriceChecker:
             diff_pct = abs(api_avg - news_avg) / api_avg
             if diff_pct > 0.10:
                 warning = (
-                    f"PRICE MISMATCH: API says ${api_avg:.2f} but "
-                    f"news says ${news_avg:.2f} ({diff_pct:.0%} diff). "
-                    f"Trust news — API may be stale."
+                    f"CAUTION: API says ${api_avg:.2f}, news mentions "
+                    f"${news_avg:.2f} ({diff_pct:.0%} diff). "
+                    f"News price may be forecast/historical, not current. "
+                    f"Using API price. Verify manually before trading."
                 )
-                best_price = news_avg  # Trust news over stale API
-            else:
-                best_price = api_avg
+                best_price = api_avg  # Trust API, flag for review
 
         return {
             "asset": asset,

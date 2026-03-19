@@ -72,6 +72,12 @@ Market reviews, strategy reviews, price fetches, news fetches, log writes, and
 database queries should all run autonomously without asking the user. Permissions
 are configured in `.claude/settings.local.json`.
 
+### Price Verification Rules
+- **Trust API prices over news headlines.** Yahoo Finance and CoinGecko return structured data fields. News headlines are ambiguous — "$110" could mean forecast, target, historical, or current.
+- **If API and news prices conflict by >10%, DO NOT trade.** Flag it for manual review. Never panic-trade on a price discrepancy.
+- **Never issue a stop-loss based on a single unverified source.** A false price alarm causes real losses.
+- News headlines are useful for **direction** (surging/crashing) but not for **exact prices.**
+
 ### Claude Code CLI (`claude -p`) Limitations
 The `claude -p` headless mode CANNOT use tools (WebFetch, Bash, Read).
 The bot must fetch all data (prices, news, market data) FIRST using Python,

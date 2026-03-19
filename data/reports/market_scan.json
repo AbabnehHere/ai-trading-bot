@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-19T14:03:02.736732+00:00",
+  "timestamp": "2026-03-19T14:05:04.576154+00:00",
   "total_markets_scanned": 336,
   "non_sports_found": 21,
   "opportunities": [
@@ -39,12 +39,8 @@
       "liquidity": 291676.831,
       "end_date": "2026-03-31",
       "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519",
-      "recent_news": [
-        "U.S. forces seize another oil tanker by March 31? Trading Odds & Predictions"
-      ],
-      "news_times": [
-        "07:45 UTC"
-      ]
+      "recent_news": [],
+      "news_times": []
     },
     {
       "id": "1467766",
@@ -56,16 +52,12 @@
       "liquidity": 121464.29298,
       "end_date": "2026-03-31",
       "slug": "will-crude-oil-cl-hit-high-100-by-end-of-march-658-396-769-971",
-      "recent_news": [
-        "Will Crude Oil (CL) hit__ Week of March 16? Trading Odds & Predictions"
-      ],
-      "news_times": [
-        "10:48 UTC"
-      ],
-      "current_asset_price": 200.0,
+      "recent_news": [],
+      "news_times": [],
+      "current_asset_price": 119.0,
       "asset_unit": "per barrel",
       "price_sources": [
-        "news_headlines: $200.00"
+        "news_headlines: $119.00"
       ]
     },
     {
@@ -138,16 +130,12 @@
       "liquidity": 201831.00247,
       "end_date": "2026-03-31",
       "slug": "will-crude-oil-cl-hit-high-150-by-end-of-march-138-937-747",
-      "recent_news": [
-        "Will Crude Oil (CL) hit__ Week of March 16? Trading Odds & Predictions"
-      ],
-      "news_times": [
-        "10:48 UTC"
-      ],
-      "current_asset_price": 200.0,
+      "recent_news": [],
+      "news_times": [],
+      "current_asset_price": 119.0,
       "asset_unit": "per barrel",
       "price_sources": [
-        "news_headlines: $200.00"
+        "news_headlines: $119.00"
       ]
     },
     {
@@ -175,11 +163,11 @@
       "slug": "will-bitcoin-dip-to-65k-in-march-2026",
       "recent_news": [],
       "news_times": [],
-      "current_asset_price": 69955.0,
+      "current_asset_price": 69927.0,
       "asset_unit": "USD",
       "price_sources": [
-        "coingecko: $69955.00",
-        "news_headlines: $75000.00"
+        "coingecko: $69927.00",
+        "news_headlines: $70000.00"
       ]
     },
     {
