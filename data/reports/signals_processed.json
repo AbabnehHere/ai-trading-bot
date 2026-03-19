@@ -1,12 +1,12 @@
 {
   "signals": [
     {
-      "market_id": "958443",
+      "market_id": "1467765",
       "token_id": "",
       "side": "BUY",
       "size": 20,
-      "price": 0.725,
-      "reasoning": "Iranian regime fall by June 30 \u2014 buying NO at $0.725. Market says 27.5% chance of regime change in 3.5 months. US intelligence chief says regime is 'intact but degraded'. Regime changes are historically rare even under heavy military pressure \u2014 IRGC and domestic security apparatus remain functional. My estimate: 10-15% chance of regime fall. Edge ~15% raw, ~13.6% after 2% taker fees. Confidence: medium-high."
+      "price": 0.5905,
+      "reasoning": "Crude Oil $110 by end of March \u2014 buying NO at $0.59. Current crude price: $96.85 (today's high $99.17). Needs +13.6% in 12 days to hit $110. Even with Iran gas facility attacks, $110 requires an extreme supply shock beyond current conflict. Historical: oil rarely moves +$13 in 12 days. Market says 41% chance \u2014 my estimate 20-25%. Edge ~17% after fees."
     }
   ]
 }

@@ -1,5 +1,17 @@
 # Claude Code Instructions for Polymarket Bot
 
+## Research Skills (use these during reviews!)
+
+You have research tools in `.claude/skills/`:
+- **get_prices.md** — Fetch live prices for crude oil, gold, crypto, stocks via WebFetch
+- **get_news.md** — Fetch breaking news by topic via Google News RSS, Reuters, BBC
+- **research_market.md** — Full research process for assessing a Polymarket market
+
+**IMPORTANT:** During every market review, always:
+1. Fetch live prices for any market referencing a price target (crude oil, bitcoin, etc.)
+2. Fetch topic-specific news for geopolitical markets (Iran, politics, etc.)
+3. Use the research_market skill for deep dives on promising opportunities
+
 ## Quick Start
 
 When the user says "start the bot reviews" or "start reviews", set up these cron jobs:
@@ -7,7 +19,9 @@ When the user says "start the bot reviews" or "start reviews", set up these cron
 ### 1. News Analysis (every 5 minutes)
 Read `data/reports/market_scan.json`. For each non-sports market in the top 20:
 - Read the question, YES price, and recent_news headlines
-- Estimate the TRUE probability independently based on news and knowledge
+- **Fetch live prices** for commodity/crypto markets using `.claude/skills/get_prices.md`
+- **Fetch topic news** for geopolitical markets using `.claude/skills/get_news.md`
+- Estimate the TRUE probability independently based on all evidence
 - Compare to market price — is there a >10% edge after 2% fees?
 - If confident edge found, read `data/reports/signals.json`, add signal, write back
 - Signal format: `{"market_id": "id", "token_id": "", "side": "BUY", "size": 20, "price": the_price, "reasoning": "explanation"}`
@@ -25,13 +39,14 @@ Read `data/reports/market_scan.json`. For each non-sports market in the top 20:
 ### 3. Nightly Deep Review (midnight)
 - Full performance analysis from database
 - Review all trades, lessons, and strategy parameters
+- Use research skills to deep-dive on all open positions
 - Suggest or apply config changes
 - Write to `data/logs/nightly_review.log`
 
 ## Bot Management
 - Start bot: `./scripts/start_bot.sh` (or `./scripts/start_bot.sh live`)
 - Stop bot: `pkill -f 'main.py --mode'`
-- Dashboard: `python scripts/dashboard.py`
+- Dashboard: `python scripts/dashboard_web.py` (http://localhost:8050)
 - Logs: `tail -f data/logs/bot.log`
 
 ## How Signals Work
@@ -46,3 +61,4 @@ can be rejected if position limits, daily loss limits, or other rules are violat
 - `data/reports/signals.json` — Trade signals for bot to execute
 - `data/reports/trade_log.json` — Current positions and recent trades
 - `data/trades.db` — Full trade history database
+- `.claude/skills/` — Research tools (prices, news, market analysis)

@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-03-19T12:02:04.741825+00:00",
-  "total_markets_scanned": 200,
+  "timestamp": "2026-03-19T12:58:18.027312+00:00",
+  "total_markets_scanned": 199,
   "opportunities": [
     {
       "id": "1602139",
@@ -8,8 +8,8 @@
       "category": "",
       "yes_price": 0.365,
       "no_price": 0.635,
-      "volume_24h": 3305455.589755996,
-      "liquidity": 4725641.6409,
+      "volume_24h": 3372940.8932909966,
+      "liquidity": 5259614.9496,
       "end_date": "2026-03-19",
       "slug": "cbb-sfl-lou-2026-03-19",
       "recent_news": []
@@ -20,8 +20,8 @@
       "category": "",
       "yes_price": 0.255,
       "no_price": 0.745,
-      "volume_24h": 1326517.6334890006,
-      "liquidity": 4041245.3688,
+      "volume_24h": 1326865.5778410023,
+      "liquidity": 4078024.3233,
       "end_date": "2026-03-20",
       "slug": "cbb-akron-txtech-2026-03-20",
       "recent_news": []
@@ -32,39 +32,39 @@
       "category": "",
       "yes_price": 0.455,
       "no_price": 0.545,
-      "volume_24h": 1034901.2031089993,
-      "liquidity": 4723534.3099,
+      "volume_24h": 1035981.3570139993,
+      "liquidity": 4718279.8776,
       "end_date": "2026-03-20",
       "slug": "cbb-missr-mia-2026-03-20",
       "recent_news": []
     },
     {
-      "id": "1408049",
-      "question": "Counter-Strike: PARIVISION vs NIP (BO3) - BLAST Open Rotterdam Group B",
+      "id": "1466015",
+      "question": "US x Iran ceasefire by March 31?",
       "category": "",
-      "yes_price": 0.63,
-      "no_price": 0.37,
-      "volume_24h": 801113.6160950004,
-      "liquidity": 52266.5159,
-      "end_date": "2026-03-19",
-      "slug": "cs2-prv-nip-2026-03-19",
-      "recent_news": []
+      "yes_price": 0.075,
+      "no_price": 0.925,
+      "volume_24h": 763060.9869800002,
+      "liquidity": 394176.8008,
+      "end_date": "",
+      "slug": "us-x-iran-ceasefire-by-march-31",
+      "recent_news": [
+        "Three Palestinian women killed during Iranian missile attack",
+        "Former counter-terrorism head investigated by FBI over alleged leaks",
+        "FBI investigates ex-U.S. Counterterrorism Center head Joe Kent for alleged leaks"
+      ]
     },
     {
-      "id": "1162940",
-      "question": "US forces enter Iran by March 31?",
+      "id": "1575630",
+      "question": "Lakers vs. Heat",
       "category": "",
-      "yes_price": 0.265,
-      "no_price": 0.735,
-      "volume_24h": 738748.3010649998,
-      "liquidity": 485430.4366,
-      "end_date": "2026-03-31",
-      "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519",
-      "recent_news": [
-        "Israel and Iran attack gas facilities in a major escalation that rattles markets",
-        "Japan PM to hold 'difficult' talks with Trump as Iran conflict looms large",
-        "Japan PM to hold 'difficult' talks with Trump as Iran conflict looms large - BBC"
-      ]
+      "yes_price": 0.455,
+      "no_price": 0.545,
+      "volume_24h": 750413.0996539999,
+      "liquidity": 140528.8855,
+      "end_date": "2026-03-20",
+      "slug": "nba-lal-mia-2026-03-19",
+      "recent_news": []
     },
     {
       "id": "703257",
@@ -72,14 +72,14 @@
       "category": "",
       "yes_price": 0.185,
       "no_price": 0.815,
-      "volume_24h": 702281.5159980011,
-      "liquidity": 1921170.5912,
+      "volume_24h": 706804.6778350011,
+      "liquidity": 1858717.34,
       "end_date": "2026-12-31",
       "slug": "will-the-us-confirm-that-aliens-exist-before-2027",
       "recent_news": [
-        "Israel and Iran attack gas facilities in a major escalation that rattles markets",
+        "TSA officers are the latest aviation workers to be used as \u2018political pawns.\u2019 Th",
         "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "How Europe sleepwalked into yet another energy crisis"
+        "Israel and Iran attack gas facilities in a major escalation that rattles markets"
       ]
     },
     {
@@ -88,26 +88,26 @@
       "category": "",
       "yes_price": 0.145,
       "no_price": 0.855,
-      "volume_24h": 694075.1973219998,
-      "liquidity": 5575673.8217,
+      "volume_24h": 694064.9361269999,
+      "liquidity": 5436032.0875,
       "end_date": "2026-03-20",
       "slug": "cbb-hofst-ala-2026-03-20",
       "recent_news": []
     },
     {
-      "id": "1466015",
-      "question": "US x Iran ceasefire by March 31?",
+      "id": "1162940",
+      "question": "US forces enter Iran by March 31?",
       "category": "",
-      "yes_price": 0.065,
-      "no_price": 0.935,
-      "volume_24h": 635308.3148200002,
-      "liquidity": 498846.3858,
-      "end_date": "",
-      "slug": "us-x-iran-ceasefire-by-march-31",
+      "yes_price": 0.265,
+      "no_price": 0.735,
+      "volume_24h": 680037.396014002,
+      "liquidity": 349001.999,
+      "end_date": "2026-03-31",
+      "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519",
       "recent_news": [
-        "Israel and Iran attack gas facilities in a major escalation that rattles markets",
-        "Japan PM to hold 'difficult' talks with Trump as Iran conflict looms large",
-        "Japan PM to hold 'difficult' talks with Trump as Iran conflict looms large - BBC"
+        "Three Palestinian women killed during Iranian missile attack",
+        "Former counter-terrorism head investigated by FBI over alleged leaks",
+        "FBI investigates ex-U.S. Counterterrorism Center head Joe Kent for alleged leaks"
       ]
     },
     {
@@ -116,8 +116,8 @@
       "category": "",
       "yes_price": 0.435,
       "no_price": 0.565,
-      "volume_24h": 610165.1270349997,
-      "liquidity": 2966864.5546,
+      "volume_24h": 610175.7577969996,
+      "liquidity": 3317274.1298,
       "end_date": "2026-03-19",
       "slug": "cbb-stlou-ga-2026-03-19",
       "recent_news": []
@@ -126,29 +126,17 @@
       "id": "1467766",
       "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?",
       "category": "",
-      "yes_price": 0.8225,
-      "no_price": 0.1775,
-      "volume_24h": 604868.2516110002,
-      "liquidity": 133478.1879,
+      "yes_price": 0.8105,
+      "no_price": 0.1895,
+      "volume_24h": 583373.9060589997,
+      "liquidity": 128994.52722,
       "end_date": "2026-03-31",
       "slug": "will-crude-oil-cl-hit-high-100-by-end-of-march-658-396-769-971",
       "recent_news": [
         "Iran war: What\u2019s the Jones Act, and why has Trump suspended it for 60 days? - Al",
-        "As Cuba struggles with power cuts, how is the island holding up?",
-        "Labubu film is official with Paddington director at the helm"
+        "Trump tried to push Powell out, but now he may be stuck with him - The Washingto",
+        "As Cuba struggles with power cuts, how is the island holding up?"
       ]
-    },
-    {
-      "id": "1575630",
-      "question": "Lakers vs. Heat",
-      "category": "",
-      "yes_price": 0.445,
-      "no_price": 0.555,
-      "volume_24h": 550817.5652220001,
-      "liquidity": 189567.0678,
-      "end_date": "2026-03-20",
-      "slug": "nba-lal-mia-2026-03-19",
-      "recent_news": []
     },
     {
       "id": "1645686",
@@ -156,8 +144,8 @@
       "category": "",
       "yes_price": 0.555,
       "no_price": 0.445,
-      "volume_24h": 543701.8569400001,
-      "liquidity": 8551.5179,
+      "volume_24h": 543721.8569400001,
+      "liquidity": 17480.5223,
       "end_date": "2026-03-20",
       "slug": "nba-cle-chi-2026-03-19-total-238pt5",
       "recent_news": []
@@ -168,10 +156,22 @@
       "category": "",
       "yes_price": 0.135,
       "no_price": 0.865,
-      "volume_24h": 530880.3073999996,
-      "liquidity": 928609.546,
+      "volume_24h": 505830.1585029994,
+      "liquidity": 927981.344,
       "end_date": "2026-04-30",
       "slug": "will-the-iranian-regime-fall-by-april-30",
+      "recent_news": []
+    },
+    {
+      "id": "669662",
+      "question": "Will there be no change in Fed interest rates after the April 2026 meeting?",
+      "category": "",
+      "yes_price": 0.945,
+      "no_price": 0.055,
+      "volume_24h": 485225.3784139999,
+      "liquidity": 593756.7463,
+      "end_date": "2026-04-29",
+      "slug": "will-there-be-no-change-in-fed-interest-rates-after-the-april-2026-meeting",
       "recent_news": []
     },
     {
@@ -180,8 +180,8 @@
       "category": "",
       "yes_price": 0.085,
       "no_price": 0.915,
-      "volume_24h": 473244.3916599999,
-      "liquidity": 441583.8673,
+      "volume_24h": 474388.76171699987,
+      "liquidity": 440534.7793,
       "end_date": "2026-05-27",
       "slug": "will-manchester-city-win-the-202526-english-premier-league",
       "recent_news": []
@@ -192,10 +192,22 @@
       "category": "",
       "yes_price": 0.275,
       "no_price": 0.725,
-      "volume_24h": 461820.98700899875,
-      "liquidity": 933652.1043,
+      "volume_24h": 461684.8944409987,
+      "liquidity": 851673.2324,
       "end_date": "2026-06-30",
       "slug": "will-the-iranian-regime-fall-by-june-30",
+      "recent_news": []
+    },
+    {
+      "id": "1631614",
+      "question": "Game Handicap: GEN (-2.5) vs LYON (+2.5)",
+      "category": "",
+      "yes_price": 0.785,
+      "no_price": 0.215,
+      "volume_24h": 451058.5390009998,
+      "liquidity": 48085.8413,
+      "end_date": "2026-03-19",
+      "slug": "lol-gen-ly-2026-03-19-game-handicap-away-2pt5",
       "recent_news": []
     },
     {
@@ -204,8 +216,8 @@
       "category": "",
       "yes_price": 0.455,
       "no_price": 0.545,
-      "volume_24h": 424163.5571320001,
-      "liquidity": 148983.3362,
+      "volume_24h": 434509.0102,
+      "liquidity": 160606.4369,
       "end_date": "2026-03-20",
       "slug": "nhl-utah-las-2026-03-19",
       "recent_news": []
@@ -216,58 +228,82 @@
       "category": "",
       "yes_price": 0.475,
       "no_price": 0.525,
-      "volume_24h": 420693.5879990005,
-      "liquidity": 118228.9173,
+      "volume_24h": 425251.7666060005,
+      "liquidity": 114642.5693,
       "end_date": "2026-03-20",
       "slug": "nba-lac-nop-2026-03-19",
-      "recent_news": []
-    },
-    {
-      "id": "1631614",
-      "question": "Game Handicap: GEN (-2.5) vs LYON (+2.5)",
-      "category": "",
-      "yes_price": 0.795,
-      "no_price": 0.205,
-      "volume_24h": 401289.3406659998,
-      "liquidity": 51143.0006,
-      "end_date": "2026-03-19",
-      "slug": "lol-gen-ly-2026-03-19-game-handicap-away-2pt5",
-      "recent_news": []
-    },
-    {
-      "id": "1365860",
-      "question": "Will Renan Santos finish in second place in the first round of the 2026 Brazilian presidential election?",
-      "category": "",
-      "yes_price": 0.09,
-      "no_price": 0.91,
-      "volume_24h": 392319.558792,
-      "liquidity": 13650.71293,
-      "end_date": "2026-10-04",
-      "slug": "will-renan-santos-finish-in-second-place-in-the-first-round-of-the-2026-brazilian-presidential-election",
-      "recent_news": []
-    },
-    {
-      "id": "1575627",
-      "question": "Pistons vs. Wizards",
-      "category": "",
-      "yes_price": 0.915,
-      "no_price": 0.085,
-      "volume_24h": 383324.24812999985,
-      "liquidity": 231124.5155,
-      "end_date": "2026-03-19",
-      "slug": "nba-det-was-2026-03-19",
       "recent_news": []
     },
     {
       "id": "1575647",
       "question": "Bucks vs. Jazz",
       "category": "",
-      "yes_price": 0.665,
-      "no_price": 0.335,
-      "volume_24h": 370417.6920940004,
-      "liquidity": 113699.1079,
+      "yes_price": 0.675,
+      "no_price": 0.325,
+      "volume_24h": 406922.6850490003,
+      "liquidity": 131063.7978,
       "end_date": "2026-03-20",
       "slug": "nba-mil-uta-2026-03-19",
+      "recent_news": []
+    },
+    {
+      "id": "1575627",
+      "question": "Pistons vs. Wizards",
+      "category": "",
+      "yes_price": 0.905,
+      "no_price": 0.095,
+      "volume_24h": 395053.410213,
+      "liquidity": 226057.3429,
+      "end_date": "2026-03-19",
+      "slug": "nba-det-was-2026-03-19",
+      "recent_news": []
+    },
+    {
+      "id": "1365860",
+      "question": "Will Renan Santos finish in second place in the first round of the 2026 Brazilian presidential election?",
+      "category": "",
+      "yes_price": 0.088,
+      "no_price": 0.912,
+      "volume_24h": 392558.520686,
+      "liquidity": 16090.64505,
+      "end_date": "2026-10-04",
+      "slug": "will-renan-santos-finish-in-second-place-in-the-first-round-of-the-2026-brazilian-presidential-election",
+      "recent_news": []
+    },
+    {
+      "id": "677397",
+      "question": "Will Israel launch a major ground offensive in Lebanon by March 31?",
+      "category": "",
+      "yes_price": 0.755,
+      "no_price": 0.245,
+      "volume_24h": 371362.337658,
+      "liquidity": 102981.5904,
+      "end_date": "2026-03-31",
+      "slug": "will-israel-launch-a-major-ground-offensive-in-lebanon-by-march-31",
+      "recent_news": []
+    },
+    {
+      "id": "1130015",
+      "question": "Will the Liberal Democratic Party of Russia (LDPR) gain the most seats in the next Russian parliamentary election?",
+      "category": "",
+      "yes_price": 0.0605,
+      "no_price": 0.9395,
+      "volume_24h": 370535.8178960001,
+      "liquidity": 28621.76421,
+      "end_date": "2026-09-30",
+      "slug": "will-the-liberal-democratic-party-of-russia-ldpr-gain-the-most-seats-in-the-next-russian-parliamentary-election",
+      "recent_news": []
+    },
+    {
+      "id": "1542960",
+      "question": "Will Elon Musk post 280-299 tweets from March 13 to March 20, 2026?",
+      "category": "",
+      "yes_price": 0.14,
+      "no_price": 0.86,
+      "volume_24h": 363398.0485469998,
+      "liquidity": 30868.9963,
+      "end_date": "2026-03-20",
+      "slug": "elon-musk-of-tweets-march-13-march-20-280-299",
       "recent_news": []
     }
   ]
